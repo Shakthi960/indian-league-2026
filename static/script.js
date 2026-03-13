@@ -1,67 +1,88 @@
-/**
- * Indian League 4 - Main Interaction Script
- */
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    let isTransitionTriggered = false;
-
-    const logo = document.getElementById("logo");
+    /* =================================
+       ELEMENTS
+    ================================= */
     const navbar = document.getElementById("navbar");
-    const about = document.getElementById("about");
     const intro = document.getElementById("intro");
     const oval = document.getElementById("oval");
+    const about = document.getElementById("about");
+    const logo = document.getElementById("logo");
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
 
-    // Intro animation only if homepage elements exist
-    if (logo && navbar && about && intro && oval) {
+    /* =================================
+       HAMBURGER MENU
+    ================================= */
+    if (hamburger && navLinks) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+    }
 
-        // Skip animation if page reloads below top
-        if (window.scrollY > 50) {
+    /* =================================
+       INTRO ANIMATION LOGIC
+    ================================= */
+    let introPlayed = false;
 
-            navbar.style.top = "0";
-            oval.classList.add("swap-layout");
-            intro.classList.add("move-down");
+    // Initially hide navbar on desktop to prevent it from showing early
+    if (window.innerWidth >= 900 && navbar) {
+        navbar.style.top = "-100px"; 
+    }
 
-            document.body.style.overflow = "auto";
-            isTransitionTriggered = true;
-        }
+    function playIntro() {
+        if (introPlayed) return;
+        introPlayed = true;
 
-        window.addEventListener("wheel", function () {
-
-            if (isTransitionTriggered) return;
-
-            isTransitionTriggered = true;
-
+        /* Desktop Animation Sequence */
+        if (window.innerWidth >= 900 && logo && oval && about) {
             about.classList.add("hide-text");
+            
+            // Spinning logo animation start
             logo.style.transform = "translateX(-350px) rotate(-1080deg)";
 
             setTimeout(() => {
-
                 logo.style.transform = "none";
                 oval.classList.add("swap-layout");
-                navbar.style.top = "0";
-
                 intro.classList.add("move-down");
-
                 about.classList.remove("hide-text");
                 about.classList.add("show-right");
 
+                /* Reveal navbar ONLY after wheel animation finishes */
+                if (navbar) {
+                    navbar.style.top = "0";
+                }
+                
+                // Allow scrolling again once animation is complete
                 document.body.style.overflow = "auto";
-
-            }, 1200);
-
-        });
-
+            }, 1200); 
+        }
     }
 
-    // -----------------------------------
-    // SPORTS CAROUSEL
-    // -----------------------------------
+    /* ===== INITIAL LOAD LOGIC ===== */
+    if (window.innerWidth >= 900) {
+        // Prevent user from scrolling during the 3s wait + animation
+        document.body.style.overflow = "hidden";
 
-    const sportNameEl = document.getElementById('active-sport-name');
-    const startEl = document.getElementById('start-date');
-    const endEl = document.getElementById('end-date');
-    const iconEl = document.getElementById('portal-icon');
+        setTimeout(() => {
+            playIntro();
+        }, 3000);
+    } else {
+        // Mobile: Show navbar immediately & ensure scrolling is active
+        if (navbar) {
+            navbar.style.top = "0";
+        }
+        document.body.style.overflow = "auto";
+    }
+
+    /* =================================
+       SPORTS CAROUSEL
+    ================================= */
+    const sportNameEl = document.getElementById("active-sport-name");
+    const startEl = document.getElementById("start-date");
+    const endEl = document.getElementById("end-date");
+    const iconEl = document.getElementById("portal-icon");
 
     if (!sportNameEl) return;
 
@@ -103,21 +124,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
 
     function updateDisplay(index) {
-
         const sport = sportsData[index];
-
         sportNameEl.style.opacity = 0;
 
         setTimeout(() => {
-
             sportNameEl.innerText = sport.name;
-            startEl.innerText = sport.start;
-            endEl.innerText = sport.end;
-
+            if (startEl) startEl.innerText = sport.start;
+            if (endEl) endEl.innerText = sport.end;
             if (iconEl) iconEl.className = `fas ${sport.icon}`;
-
             sportNameEl.style.opacity = 1;
-
         }, 200);
     }
 
@@ -134,5 +149,4 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(() => {
         nextSport();
     }, 4000);
-
 });
