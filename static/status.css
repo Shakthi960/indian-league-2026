@@ -1,0 +1,293 @@
+/* ======================================== */
+/* STATUS PAGE GLOBAL FIX */
+/* ======================================== */
+
+html, body {
+overflow-y:auto !important;
+overflow-x:hidden !important;
+height:auto !important;
+}
+
+.navbar{
+top:0 !important;
+}
+
+.status-section{
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+}
+
+.status-box{
+
+background:#091e3a;
+padding:50px;
+border-radius:20px;
+width:400px;
+text-align:center;
+
+}
+
+.status-box h1{
+
+margin-bottom:30px;
+font-family:"AesthetNova";
+
+}
+
+.status-box input,
+.status-box select{
+
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:6px;
+border:none;
+
+}
+
+.status-box button{
+
+margin-top:15px;
+padding:12px 25px;
+background:#2d9ee0;
+border:none;
+border-radius:20px;
+cursor:pointer;
+
+}
+
+.success{
+
+color:#2ecc71;
+margin-top:20px;
+
+}
+
+.error{
+
+color:#e74c3c;
+margin-top:20px;
+
+}
+
+.download{
+
+display:inline-block;/* ======================================= */
+/* STATUS PAGE */
+/* ======================================= */
+
+html,body{
+overflow-y:auto !important;
+height:auto !important;
+}
+
+/* SECTION */
+
+.status-section{
+
+min-height:calc(100vh - 80px);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:120px 20px;
+
+background:#060B13;
+
+}
+
+/* BOX */
+
+.status-box{
+
+background:#091e3a;
+
+padding:50px 40px;
+
+border-radius:20px;
+
+width:100%;
+max-width:420px;
+
+text-align:center;
+
+border:1px solid rgba(45,158,224,0.25);
+
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
+}
+
+/* TITLE */
+
+.status-box h1{
+
+margin-bottom:30px;
+
+font-family:"AesthetNova";
+
+font-size:32px;
+
+color:#ffffff;
+
+}
+
+/* INPUTS */
+
+.status-box input,
+.status-box select{
+
+width:100%;
+
+padding:14px;
+
+margin:10px 0;
+
+border-radius:8px;
+
+border:1px solid rgba(255,255,255,0.15);
+
+background:#060B13;
+
+color:#ffffff;
+
+font-size:14px;
+
+transition:0.3s;
+
+}
+
+.status-box input:focus,
+.status-box select:focus{
+
+outline:none;
+
+border-color:#2d9ee0;
+
+box-shadow:0 0 8px rgba(45,158,224,0.4);
+
+}
+
+/* BUTTON */
+
+.status-box button{
+
+margin-top:20px;
+
+padding:12px 30px;
+
+background:#2d9ee0;
+
+border:none;
+
+border-radius:25px;
+
+cursor:pointer;
+
+color:white;
+
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.status-box button:hover{
+
+background:#ffffff;
+
+color:#2d9ee0;
+
+transform:scale(1.05);
+
+box-shadow:0 0 12px rgba(45,158,224,0.4);
+
+}
+
+/* STATUS MESSAGES */
+
+.success{
+
+color:#2ecc71;
+
+margin-top:20px;
+
+font-weight:bold;
+
+}
+
+.error{
+
+color:#e74c3c;
+
+margin-top:20px;
+
+font-weight:bold;
+
+}
+
+/* DOWNLOAD BUTTON */
+
+.download{
+
+display:inline-block;
+
+margin-top:15px;
+
+background:#2d9ee0;
+
+padding:10px 22px;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:20px;
+
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.download:hover{
+
+background:white;
+
+color:#2d9ee0;
+
+box-shadow:0 0 12px rgba(45,158,224,0.4);
+
+}
+
+/* ======================================= */
+/* MOBILE */
+/* ======================================= */
+
+@media(max-width:600px){
+
+.status-box{
+
+padding:40px 25px;
+
+}
+
+.status-box h1{
+
+font-size:26px;
+
+}
+
+}
+margin-top:15px;
+background:#2d9ee0;
+padding:10px 20px;
+color:white;
+text-decoration:none;
+border-radius:15px;
+
+}

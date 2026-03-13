@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="intro" id="intro">
+    <div class="oval" id="oval">
+
+        <div class="about" id="about">
+            <h1>INDIAN LEAGUE 4</h1>
+            <p>
+                Get ready for the adrenaline-pumping action as one of India’s biggest
+                and most prestigious state-level sports leagues returns, bigger and
+                better than ever. Hosted in the vibrant state of Goa & Pondicherry, this
+                Olympic-style multi-sport extravaganza will bring together top athletes
+                from across Indian states to compete in a thrilling lineup of sports.
+            </p>
+        </div>
+
+        <div class="logo-wrapper">
+            <div class="logo-ring"></div>
+
+            <div class="logo-circle" id="logo">
+                <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="Indian League 4 Logo">
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="slant-section">
+
+    <div class="slant-container">
+
+        <div class="decor-line line-1"></div>
+        <div class="decor-line line-2"></div>
+
+        <div class="event-main">
+
+            <div class="event-header">
+
+                <span class="eyebrow">THE GRAND LAUNCH</span>
+
+                <h1 class="main-title">
+
+                    <span class="lite">OPENING</span><br>
+
+                    <span class="bold">CEREMONY</span>
+
+                </h1>
+
+            </div>
+
+
+            <div class="event-details">
+
+                <div class="detail-box date">
+
+                    <span class="detail-label">DATE</span>
+
+                    <div class="date-wrapper">
+
+                        <span class="big-day">06</span>
+
+                        <div class="month-year">
+
+                            <span class="m">JUNE</span>
+                            <span class="y">2026</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box venue">
+
+                    <span class="detail-label">LOCATION</span>
+
+                    <h2 class="city-name">GOA</h2>
+
+                    <span class="league-tag">INDIAN LEAGUE 4</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="wave-container">
+
+            <svg class="wavy-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+
+                <path fill="rgba(45,158,224,0.1)"
+                d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,202.7C960,203,1056,149,1152,122.7C1248,96,1344,96,1392,96L1440,96L1440,320L0,320Z"></path>
+
+            </svg>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="slant-section slant-reverse">
+
+    <div class="slant-container">
+
+        <div class="decor-line line-1"></div>
+        <div class="decor-line line-2"></div>
+
+        <div class="event-main">
+
+            <div class="event-header">
+
+                <span class="eyebrow">THE FINAL SHOWDOWN</span>
+
+                <h1 class="main-title">
+
+                    <span class="lite">CLOSING</span><br>
+                    <span class="bold">CEREMONY</span>
+
+                </h1>
+
+            </div>
+
+
+            <div class="event-details">
+
+                <div class="detail-box date">
+
+                    <span class="detail-label">DATE</span>
+
+                    <div class="date-wrapper">
+
+                        <span class="big-day">31</span>
+
+                        <div class="month-year">
+
+                            <span class="m">JULY</span>
+                            <span class="y">2026</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box venue">
+
+                    <span class="detail-label">LOCATION</span>
+
+                    <h2 class="city-name">PONDICHERRY</h2>
+
+                    <span class="league-tag">INDIAN LEAGUE 4</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="sports-schedule" id="schedule-section">
+
+    <button class="nav-arrow left" onclick="prevSport()">&#10094;</button>
+    <button class="nav-arrow right" onclick="nextSport()">&#10095;</button>
+
+    <div class="schedule-wrapper">
+
+        <h2 class="section-title">CHAMPIONSHIP TIMELINE</h2>
+
+        <div class="schedule-container">
+
+            <div class="sport-name-display">
+
+                <h3 id="active-sport-name">CRICKET</h3>
+
+            </div>
+
+
+            <div class="portal-outer">
+
+                <div class="portal-circle">
+
+                    <i class="fas fa-basketball" id="portal-icon"></i>
+
+                </div>
+
+
+                <a href="/schedule" class="orbit-button">
+
+                    <span>VIEW FULL<br>SCHEDULE</span>
+
+                </a>
+
+            </div>
+
+
+            <div class="sport-date-display">
+
+                <span class="date-label">COMPETITION DATES</span>
+
+                <div class="date-range">
+
+                    <span id="start-date">JUN 07</span>
+
+                    <hr class="date-divider">
+
+                    <span id="end-date">JUL 04</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="partners">
+
+<div class="partners-container">
+
+<h2 class="section-title">Official Partners & Broadcast</h2>
+
+<div class="partner-row single">
+
+<div class="partner-group">
+
+<h3>Organising Company</h3>
+
+<div class="partner-logos">
+
+<img src="{{ url_for('static', filename='images/kvvsh_logo_il4.png') }}" alt="KVVSH Logo">
+<img src="{{ url_for('static', filename='images/g_entertainmenr_il4.png') }}" alt="G Entertainment Logo">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="partner-row">
+
+<div class="partner-group">
+
+<h3>Title Sponsor</h3>
+
+<div class="partner-logos">
+
+<img src="{{ url_for('static', filename='images/samsung_il4.png') }}" alt="Samsung Logo">
+
+</div>
+
+</div>
+
+
+<div class="partner-group">
+
+<h3>Strategic Partners</h3>
+
+<div class="partner-logos four">
+
+<img src="{{ url_for('static', filename='images/reliance_il4.png') }}" alt="Reliance Logo">
+<img src="{{ url_for('static', filename='images/tata_il4.png') }}" alt="Tata Logo">
+<img src="{{ url_for('static', filename='images/hyundai_il4.png') }}" alt="Hyundai Logo">
+<img src="{{ url_for('static', filename='images/sobha_il4.png') }}" alt="Sobha Logo">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="partner-row">
+
+    <div class="partner-group">
+        <h3>Television Broadcast</h3>
+        <div class="partner-logos">
+            <img src="{{ url_for('static', filename='images/g_television_il4.png') }}" alt="G Television">
+            <img src="{{ url_for('static', filename='images/jiostar_il4.png') }}" alt="JioStar">
+        </div>
+    </div>
+
+    <div class="partner-group">
+        <h3>Digital Broadcast</h3>
+        <div class="partner-logos">
+            <img src="{{ url_for('static', filename='images/g_aloha_il4.png') }}" alt="G Aloha">
+        </div>
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

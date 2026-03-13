@@ -1,0 +1,798 @@
+/* ================================================= */
+/* 1. FONTS & ROOT                                   */
+/* ================================================= */
+
+@font-face {
+    font-family: "AesthetNova";
+    src: url("/static/fonts/Aesthet-Nova-W05-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #060B13;
+    color: #E6EEF6; 
+    overflow: hidden;
+}
+
+/* ================================================= */
+/* 2. GLOBAL EFFECTS & BACKGROUND                    */
+/* ================================================= */
+
+.stadium-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(47, 128, 237, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 10%, rgba(45, 158, 224, 0.1), transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(9, 30, 58, 0.2), transparent 50%);
+    pointer-events: none;
+}
+
+/* ================================================= */
+/* 3. NAVIGATION BAR                                 */
+/* ================================================= */
+
+.navbar {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    padding: 0 70px;
+    background: rgba(9, 30, 58, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #2f80ed;
+    border-radius: 0px 0px 50px 50px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+    transition: 0.8s;
+}
+
+.logo-small img {
+    margin-top: 20px;
+    width: 55px;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+}
+
+.navbar li {
+    position: relative;
+    cursor: pointer;
+}
+
+.navbar li a {
+    text-decoration: none;
+    color: #E6EEF6;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.navbar li::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2d9ee0;
+    transition: 0.3s;
+}
+
+.navbar li:hover::after {
+    width: 100%;
+}
+
+/* ================================================= */
+/* 4. INTRO SECTION                                  */
+/* ================================================= */
+
+.intro {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+.intro.move-down {
+    padding-top: 120px;
+}
+
+/* Oval Container */
+.oval {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%;
+    height: 650px;
+    padding: 70px 150px;
+    background: linear-gradient(145deg, #091e3a, #1a4b8c);
+    border: 7px solid #2f80ed;
+    border-radius: 500px;
+    box-shadow: 0 50px 140px rgba(0, 0, 0, 0.85);
+    transition: 0.6s;
+}
+
+.oval.swap-layout {
+    flex-direction: row-reverse;
+}
+
+/* Text Content */
+.about {
+    width: 38%;
+    transition: 0.6s;
+}
+
+.about h1 {
+    font-family: "AesthetNova";
+    font-size: 76px;
+    color: #2d9ee0;
+    margin-bottom: 35px;
+    letter-spacing: 3px;
+}
+
+.about p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #B8C6D6;
+}
+
+/* Logo & Rings */
+.logo-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #2d9ee0, #091e3a);
+    border: 7px solid #2f80ed;
+    border-radius: 50%;
+    box-shadow: 0 0 90px rgba(47, 128, 237, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.6);
+    transition: 1.2s;
+}
+
+.logo-circle img {
+    width: 270px;
+}
+
+.logo-ring {
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    border: 3px solid rgba(45, 158, 224, 0.5);
+    border-radius: 50%;
+    animation: ringRotate 12s linear infinite;
+}
+
+/* Intro Animations */
+.hide-text {
+    opacity: 0;
+    transform: translateX(-80px);
+}
+
+.show-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ================================================= */
+/* 5. SLANTED PARALLEL SECTION                       */
+/* ================================================= */
+
+.slant-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    padding: 80px;
+    margin-top: 50px;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Background Clip Paths */
+.slant-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    background: #2f80ed;
+    clip-path: polygon(0 14%, 100% -1%, 100% 86%, 0 101%);
+}
+
+.slant-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0d2a52, #1a4b8c);
+    clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+}
+
+/* Content Container */
+.slant-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Text & Typography */
+.eyebrow {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 8px;
+    color: #2d9ee0;
+}
+
+.main-title {
+    font-family: "AesthetNova", sans-serif;
+    line-height: 0.9;
+    text-align: left;
+}
+
+.main-title .lite {
+    font-size: 60px;
+    font-weight: 100;
+    letter-spacing: 5px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(230, 238, 246, 0.5);
+}
+
+.main-title .bold {
+    font-size: 95px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #ffffff;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Event Details */
+.event-details {
+    display: flex;
+    gap: 80px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(45, 158, 224, 0.3);
+}
+
+.detail-label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #2d9ee0;
+}
+
+.date-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.big-day {
+    font-family: "AesthetNova";
+    font-size: 80px;
+    line-height: 1;
+    color: #ffffff;
+}
+
+.month-year {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+.month-year .m { font-size: 24px; color: #2d9ee0; }
+.month-year .y { font-size: 16px; color: #B8C6D6; opacity: 0.7; }
+
+.city-name {
+    font-family: "AesthetNova";
+    font-size: 50px;
+    margin-top: -5px;
+    letter-spacing: 5px;
+    color: #ffffff;
+}
+
+.league-tag {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #2d9ee0;
+}
+
+/* Decorative Section Elements */
+.decor-line {
+    position: absolute;
+    width: 150%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2d9ee0, transparent);
+    opacity: 0.3;
+}
+
+.line-1 { top: 10%; transform: rotate(-5deg); }
+.line-2 { bottom: 15%; transform: rotate(-3deg); }
+
+.wave-container {
+    position: absolute;
+    bottom: -150px;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 300px;
+    opacity: 0.5;
+}
+
+.wavy-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.event-main {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* REVERSED SLANT SETTINGS */
+.slant-reverse {
+    margin-top: -80px; /* Overlap slightly for a seamless look */
+}
+
+.slant-reverse::before {
+    background: #2d9ee0; /* Slightly different blue for distinction */
+    clip-path: polygon(0 0, 100% 15%, 100% 100%, 0 85%) !important;
+}
+
+.slant-reverse::after {
+    clip-path: polygon(0 1%, 100% 16%, 100% 99%, 0 84%) !important;
+}
+
+.slant-reverse .line-1 { transform: rotate(5deg); }
+.slant-reverse .line-2 { transform: rotate(3deg); }
+
+/* Ensuring the text stays left-aligned even in reversed containers */
+.slant-reverse .main-title {
+    text-align: left;
+}
+
+/* ================================================= */
+/* 8. SPORTS SCHEDULE SECTION - FULLY CORRECTED      */
+/* ================================================= */
+
+.sports-schedule {
+    height: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #0d2a52 0%, #060B13 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0;
+}
+
+.schedule-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+/* 1. Grid with Fixed Center to prevent Oval Squashing */
+.schedule-container {
+    display: grid;
+    /* Left: 1fr | Center: 320px (Fixed) | Right: 1fr */
+    grid-template-columns: 1fr 320px 1fr; 
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    width: 100%;
+}
+
+/* 2. Side Text Alignment */
+.sport-name-display {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.sport-date-display {
+    text-align: left;
+    padding-left: 20px;
+}
+
+#active-sport-name {
+    font-family: "AesthetNova";
+    font-size: clamp(30px, 4vw, 56px);
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(45, 158, 224, 0.4);
+}
+
+.date-label {
+    display: block;
+    color: #2d9ee0;
+    letter-spacing: 3px;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.date-range {
+    font-family: "AesthetNova";
+    font-size: 30px;
+    color: #E6EEF6;
+}
+
+.date-divider {
+    width: 40px;
+    border: 1px solid #2d9ee0;
+    margin: 8px 0;
+}
+
+/* 3. The Portal (Guaranteed Circle) */
+.portal-outer {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portal-circle {
+    width: 280px; /* Actual circle size */
+    height: 280px;
+    border-radius: 50%;
+    border: 2px solid rgba(45, 158, 224, 0.5);
+    background: radial-gradient(circle, rgba(45, 158, 224, 0.15) 0%, transparent 75%);
+    box-shadow: inset 0 0 40px rgba(45, 158, 224, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 4. Font Awesome Icon Positioning */
+#portal-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 120px;
+    color: #2d9ee0;
+    opacity: 0.3;
+    z-index: 1;
+    filter: drop-shadow(0 0 15px rgba(45, 158, 224, 0.5));
+    animation: iconPulse 4s ease-in-out infinite;
+}
+
+/* 5. Orbiting Button pinned to Portal Outer */
+.orbit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 95px;
+    height: 95px;
+    background: #2d9ee0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.2;
+    z-index: 20;
+    box-shadow: 0 0 20px rgba(45, 158, 224, 0.5);
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: floating 3s ease-in-out infinite;
+}
+
+.orbit-button:hover {
+    background: #fff;
+    color: #2d9ee0;
+    transform: scale(1.1);
+}
+
+/* 6. Navigation Arrows */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(9, 30, 58, 0.3);
+    border: 1px solid rgba(45, 158, 224, 0.2);
+    color: #2d9ee0;
+    font-size: 24px;
+    padding: 20px 15px;
+    cursor: pointer;
+    z-index: 100;
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.nav-arrow.left { left: 20px; border-radius: 0 15px 15px 0; }
+.nav-arrow.right { right: 20px; border-radius: 15px 0 0 15px; }
+
+.nav-arrow:hover {
+    background: #2d9ee0;
+    color: white;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes iconPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; }
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ================================================= */
+/* 6. PARTNERS SECTION - REFINED ALIGNMENT           */
+/* ================================================= */
+
+.section-title {
+    text-align: center;
+    font-family: "AesthetNova";
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: #2d9ee0;
+    margin-bottom: 60px;
+}
+
+.partner-group h3 {
+    text-align: center;
+}
+
+.partners {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #091e3a, #04080e);
+}
+
+.partner-row {
+    display: flex; /* Switched to flex for better centering control */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+.partner-group {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.partner-group h3 {
+    margin-bottom: 30px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: rgba(230, 238, 246, 0.6);
+    border-bottom: 1px solid rgba(45, 158, 224, 0.3);
+    padding-bottom: 10px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.partner-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    filter: brightness(1) invert(0);
+}
+
+/* Logic for logo sizing - FULL BRIGHTNESS */
+.partner-logos img {
+    max-height: 60px; 
+    width: auto;
+    max-width: 160px;
+    object-fit: contain; 
+    opacity: 1.0; 
+    filter: none;     
+    transition: all 0.4s ease;
+}
+
+.partner-logos img:hover {
+    transform: translateY(-5px);
+}
+
+/* ================================================= */
+/* 7. FOOTER SECTION - ICON UPDATES                  */
+/* ================================================= */
+
+.social-links {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 18px; /* Icon size */
+    color: #ffffff;
+    background: rgba(45, 158, 224, 0.1);
+    border: 1px solid rgba(45, 158, 224, 0.3);
+    border-radius: 50%; /* Circular icons */
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-icon:hover {
+    background: #2d9ee0;
+    color: #ffffff;
+    transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(45, 158, 224, 0.5);
+}
+
+/* ================================================= */
+/* 7. FOOTER SECTION                                 */
+/* ================================================= */
+
+.footer {
+    padding: 80px 0 30px;
+    background: #04080e;
+    border-top: 1px solid rgba(47, 128, 237, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    padding: 0 40px;
+}
+
+.footer-logo {
+    width: 80px;
+    margin-bottom: 25px;
+}
+
+.footer-brand p {
+    color: #B8C6D6;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-size: 15px;
+    max-width: 400px;
+}
+
+/* Social Icons */
+.social-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    font-size: 13px;
+    text-decoration: none;
+    color: #2d9ee0;
+    padding: 8px 15px;
+    border: 1px solid rgba(45, 158, 224, 0.3);
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.social-icon:hover {
+    background: #2d9ee0;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(45, 158, 224, 0.4);
+}
+
+/* Links */
+.footer-links h3, .footer-info h3 {
+    font-family: "AesthetNova";
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #B8C6D6;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #2d9ee0;
+    padding-left: 5px;
+}
+
+.footer-info p {
+    color: #B8C6D6;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.email-link {
+    margin-top: 15px;
+    color: #2d9ee0 !important;
+    font-weight: bold;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 12px;
+    color: #B8C6D6;
+    opacity: 0.6;
+    letter-spacing: 1px;
+}

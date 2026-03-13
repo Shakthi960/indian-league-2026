@@ -1,0 +1,347 @@
+/* ======================================== */
+/* ABOUT PAGE GLOBAL FIX */
+/* ======================================== */
+
+html, body {
+overflow-y:auto !important;
+overflow-x:hidden !important;
+height:auto !important;
+}
+
+.navbar{
+top:0 !important;
+}
+
+/* ======================================== */
+/* GENERAL */
+/* ======================================== */
+
+.container{
+
+max-width:1200px;
+margin:auto;
+padding:0 40px;
+
+}
+
+section{
+
+padding:100px 0;
+
+}
+
+.highlight{
+color:#2d9ee0;
+}
+
+/* ======================================== */
+/* HERO SECTION */
+/* ======================================== */
+
+.about-hero{
+
+margin-top:80px;
+
+background:
+linear-gradient(rgba(6,11,19,0.85),rgba(6,11,19,0.85)),
+url("../images/stadium-bg.jpg");
+
+background-size:cover;
+background-position:center;
+
+}
+
+.flex-row{
+
+display:flex;
+align-items:center;
+gap:60px;
+flex-wrap:wrap;
+
+}
+
+.hero-text{
+
+flex:1;
+
+}
+
+.hero-text h1{
+
+font-family:"AesthetNova";
+font-size:60px;
+margin-bottom:20px;
+
+}
+
+.hero-text p{
+
+font-size:18px;
+line-height:1.8;
+color:#B8C6D6;
+
+}
+
+.hero-logo{
+
+flex:1;
+text-align:center;
+
+}
+
+.hero-logo img{
+
+width:280px;
+
+filter:drop-shadow(0 0 30px rgba(45,158,224,0.4));
+
+}
+
+/* ======================================== */
+/* INFO CARDS */
+/* ======================================== */
+
+.il4-overview{
+
+background:#091e3a;
+
+}
+
+.info-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:30px;
+
+}
+
+.info-card{
+
+background:rgba(255,255,255,0.05);
+padding:40px;
+
+border-radius:20px;
+
+text-align:center;
+
+border:1px solid rgba(45,158,224,0.2);
+
+transition:0.3s;
+
+}
+
+.info-card:hover{
+
+transform:translateY(-8px);
+box-shadow:0 10px 25px rgba(45,158,224,0.3);
+
+}
+
+.info-card i{
+
+font-size:40px;
+color:#2d9ee0;
+margin-bottom:20px;
+
+}
+
+.info-card h3{
+
+font-family:"AesthetNova";
+margin-bottom:10px;
+
+}
+
+/* ======================================== */
+/* TORCH RELAY */
+/* ======================================== */
+
+.torch-relay{
+
+text-align:center;
+
+background:radial-gradient(circle at center,#1a4b8c,#060B13);
+
+}
+
+.timeline{
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+flex-wrap:wrap;
+
+margin:50px 0;
+
+}
+
+.t-item{
+
+background:#1081c3;
+padding:20px;
+border-radius:15px;
+
+min-width:150px;
+
+}
+
+.t-line{
+
+width:80px;
+height:2px;
+background:rgba(255,255,255,0.2);
+
+}
+
+/* ======================================== */
+/* CEREMONIES */
+/* ======================================== */
+
+.ceremony{
+
+text-align:center;
+
+border-bottom:1px solid rgba(45,158,224,0.1);
+
+}
+
+.venue-text{
+
+font-size:24px;
+color:#B8C6D6;
+
+margin-bottom:50px;
+
+}
+
+.sub-heading{
+
+font-family:"AesthetNova";
+
+margin:60px 0 30px;
+
+font-size:28px;
+
+letter-spacing:2px;
+
+}
+
+/* ======================================== */
+/* PEOPLE GRID */
+/* ======================================== */
+
+.people-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+
+gap:25px;
+
+margin-bottom:40px;
+
+}
+
+.person{
+
+text-align:center;
+
+}
+
+.person img{
+
+width:150px;
+height:150px;
+
+object-fit:cover;
+
+border-radius:15px;
+
+border:3px solid #2d9ee0;
+
+margin-bottom:10px;
+
+transition:0.3s;
+
+}
+
+.person img:hover{
+
+transform:scale(1.05);
+
+box-shadow:0 0 20px rgba(45,158,224,0.5);
+
+}
+
+.person span{
+
+font-size:14px;
+font-weight:bold;
+
+}
+
+/* ======================================== */
+/* CLOSING EXTRAS */
+/* ======================================== */
+
+.prize-info{
+
+margin:50px 0;
+
+padding:25px;
+
+background:rgba(45,158,224,0.1);
+
+border-radius:40px;
+
+display:inline-flex;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+.vote-thanks{
+
+margin-top:80px;
+
+border-top:1px dashed #2d9ee0;
+
+padding-top:50px;
+
+}
+
+.title-tag{
+
+display:block;
+
+color:#2d9ee0;
+
+font-size:12px;
+
+letter-spacing:2px;
+
+margin-top:10px;
+
+}
+
+/* ======================================== */
+/* RESPONSIVE */
+/* ======================================== */
+
+@media(max-width:768px){
+
+.hero-text h1{
+font-size:40px;
+}
+
+.flex-row{
+flex-direction:column;
+text-align:center;
+}
+
+}

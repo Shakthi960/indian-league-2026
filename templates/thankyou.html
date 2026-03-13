@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='status.css') }}">
+
+<section class="status-section">
+
+<div class="status-box">
+
+<h1>THANK YOU</h1>
+
+<p>Thank you for registering for</p>
+
+<h2>INDIAN LEAGUE 4</h2>
+
+<p>You will receive updates via Email and SMS.</p>
+
+<div style="margin-top:25px">
+
+<a href="/status" class="download">Check Registration</a>
+
+</div>
+
+<p style="margin-top:20px;font-size:14px">
+Redirecting to homepage...
+</p>
+
+</div>
+
+</section>
+
+
+<script>
+
+localStorage.clear()
+
+setTimeout(function(){
+
+window.location="/"
+
+},5000)
+
+</script>
+
+{% endblock %}

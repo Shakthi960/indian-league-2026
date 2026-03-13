@@ -1,0 +1,176 @@
+/* ======================================== */
+/* REGISTRATION PAGE GLOBAL FIX */
+/* ======================================== */
+
+html, body {
+overflow-y:auto !important;
+overflow-x:hidden !important;
+height:auto !important;
+}
+
+.navbar{
+top:0 !important;
+}
+
+/* ======================================= */
+/* REGISTRATION PAGE */
+/* ======================================= */
+
+.register-section{
+
+background:#060B13;
+color:#E6EEF6;
+
+padding:140px 20px 100px;
+
+}
+
+/* Container */
+
+.register-section .container{
+
+max-width:1000px;
+margin:auto;
+
+}
+
+/* Title */
+
+.register-section h1{
+
+text-align:center;
+
+font-family:"AesthetNova";
+
+font-size:42px;
+
+margin-bottom:20px;
+
+}
+
+/* Form Grid */
+
+.form-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:25px;
+
+margin-top:50px;
+
+}
+
+/* Inputs */
+
+input,select{
+
+width:100%;
+
+padding:14px 15px;
+
+border-radius:10px;
+
+border:1px solid rgba(255,255,255,0.15);
+
+background:#091e3a;
+
+color:#ffffff !important;
+
+font-size:14px;
+
+transition:0.3s;
+
+}
+
+/* Focus */
+
+input:focus,select:focus{
+
+outline:none;
+
+border-color:#2d9ee0;
+
+box-shadow:0 0 8px rgba(45,158,224,0.4);
+
+}
+
+/* File Upload */
+
+.file-upload{
+
+grid-column:span 2;
+
+}
+
+.file-upload label{
+
+font-size:14px;
+
+margin-bottom:8px;
+
+display:block;
+
+color:#B8C6D6;
+
+}
+
+/* Submit Button */
+
+.next-btn{
+
+margin-top:40px;
+
+padding:15px 45px;
+
+background:#2d9ee0;
+
+border:none;
+
+border-radius:30px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+display:block;
+
+margin-left:auto;
+margin-right:auto;
+
+transition:0.3s;
+
+}
+
+.next-btn:hover{
+
+background:white;
+
+color:#2d9ee0;
+
+transform:scale(1.05);
+
+box-shadow:0 0 15px rgba(45,158,224,0.5);
+
+}
+
+/* Responsive */
+
+@media(max-width:800px){
+
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.file-upload{
+
+grid-column:span 1;
+
+}
+
+}

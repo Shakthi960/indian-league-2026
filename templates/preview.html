@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='preview.css') }}">
+
+<div class="a4-page">
+
+<div class="form-header">
+
+<img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="IL4 Logo">
+
+<div class="title">
+
+<h1>INDIAN LEAGUE 4</h1>
+<p>Goa & Pondicherry 2026</p>
+<span>Official Player Registration Form</span>
+
+</div>
+
+<img id="userPhoto" class="photo" alt="Player Photo">
+
+</div>
+
+<hr>
+
+<div class="form-body">
+
+<div class="row">
+<label>First Name</label>
+<span id="firstname"></span>
+</div>
+
+<div class="row">
+<label>Middle Name</label>
+<span id="middlename"></span>
+</div>
+
+<div class="row">
+<label>Last Name</label>
+<span id="lastname"></span>
+</div>
+
+<div class="row">
+<label>Email ID</label>
+<span id="email"></span>
+</div>
+
+<div class="row">
+<label>Phone Number</label>
+<span id="phone"></span>
+</div>
+
+<div class="row">
+<label>Date of Birth</label>
+<span id="dob"></span>
+</div>
+
+<div class="row">
+<label>Age</label>
+<span id="age"></span>
+</div>
+
+<div class="row">
+<label>Representing State</label>
+<span id="state"></span>
+</div>
+
+<div class="row">
+<label>Sport</label>
+<span id="sport"></span>
+</div>
+
+</div>
+
+<div class="rules">
+
+<h3>Rules & Regulations</h3>
+
+<ol>
+<li>Please carry your Aadhaar card to participate in sports.</li>
+<li>For Cricket, Football, Kabaddi we will call you for state level selection.</li>
+<li>Above age 30 should bring fitness certificate.</li>
+<li>Date, time and venue will be informed through email and phone.</li>
+<li>For more rules and regulations visit official website.</li>
+</ol>
+
+</div>
+
+<div class="signature">
+
+<div class="sign">
+
+<img src="{{ url_for('static', filename='images/sign.jpeg') }}" alt="Signature">
+
+<p><b>Mr. Shakthi</b></p>
+
+<span>
+President<br>
+KVVSH Group of Companies
+</span>
+
+</div>
+
+</div>
+
+<div class="accept">
+
+<label>
+<input type="checkbox" id="accept">
+I accept the rules and regulations
+</label>
+
+<button id="registerBtn">REGISTER NOW</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+function getItem(key){
+return localStorage.getItem(key) || "-"
+}
+
+document.getElementById("firstname").innerText = getItem("firstname")
+document.getElementById("middlename").innerText = getItem("middlename")
+document.getElementById("lastname").innerText = getItem("lastname")
+document.getElementById("email").innerText = getItem("email")
+document.getElementById("phone").innerText = getItem("phone")
+document.getElementById("dob").innerText = getItem("dob")
+document.getElementById("age").innerText = getItem("age")
+document.getElementById("state").innerText = getItem("state")
+document.getElementById("sport").innerText = getItem("sport")
+
+const photo = localStorage.getItem("photo")
+if(photo){
+document.getElementById("userPhoto").src = photo
+}
+
+/* Final Registration */
+
+document.getElementById("registerBtn").onclick = async function(){
+
+if(!document.getElementById("accept").checked){
+
+alert("Please accept the rules and regulations")
+return
+
+}
+
+this.disabled = true
+this.innerText = "Registering..."
+
+const data = {
+
+firstname:getItem("firstname"),
+middlename:getItem("middlename"),
+lastname:getItem("lastname"),
+email:getItem("email"),
+phone:getItem("phone"),
+dob:getItem("dob"),
+age:getItem("age"),
+state:getItem("state"),
+sport:getItem("sport"),
+photo:localStorage.getItem("photo")
+
+}
+
+try{
+
+const res = await fetch("/register",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+})
+
+const result = await res.json()
+
+if(result.status === "success"){
+
+alert("Registration Successful\nApplication ID: "+result.application_id)
+
+localStorage.clear()
+
+window.location="/thankyou"
+
+}
+
+else if(result.status === "duplicate"){
+
+alert("Duplicate registration not allowed")
+
+}
+
+else if(result.status === "phone_limit"){
+
+alert("Phone number already used for 10 registrations")
+
+}
+
+else if(result.status === "email_limit"){
+
+alert("Email already used for 10 registrations")
+
+}
+
+else{
+
+alert("Registration failed")
+
+}
+
+}catch(err){
+
+alert("Server error. Please try again.")
+
+}
+
+}
+
+</script>
+
+{% endblock %}

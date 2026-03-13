@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='schedule.css') }}">
+
+<div class="schedule-page">
+
+<header class="schedule-hero">
+
+<div class="container hero-content">
+
+<span class="eyebrow">ROAD TO GLORY</span>
+
+<h1 class="main-title">
+
+<span class="lite">EVENT</span>
+<span class="bold">TIMELINE</span>
+
+</h1>
+
+</div>
+
+</header>
+
+
+<section class="timeline-path-section">
+
+<div class="path-container">
+
+
+<!-- ROW 1 -->
+
+<div class="path-row">
+
+<div class="path-line"></div>
+
+<div class="node launch" aria-label="Opening Ceremony">
+<div class="dot highlight pulse"></div>
+<div class="info">
+<b>JUNE 06</b>
+<span>OPENING CEREMONY</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUN 07 - JUL 04</b>
+<span>CRICKET</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUN 07 - JUN 27</b>
+<span>FOOTBALL</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUN 28 - JUL 11</b>
+<span>KABADDI</span>
+</div>
+</div>
+
+</div>
+
+
+<!-- ROW 2 -->
+
+<div class="path-row">
+
+<div class="path-line"></div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 05 - JUL 07</b>
+<span>ARCHERY</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 05 - JUL 12</b>
+<span>ATHLETICS</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 08 - JUL 14</b>
+<span>BADMINTON</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 08 - JUL 15</b>
+<span>BASKETBALL</span>
+</div>
+</div>
+
+</div>
+
+
+<!-- ROW 3 -->
+
+<div class="path-row">
+
+<div class="path-line"></div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 12 - JUL 16</b>
+<span>BEACH HANDBALL</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 12 - JUL 17</b>
+<span>BEACH VOLLEYBALL</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 14 - JUL 18</b>
+<span>BOXING</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 14 - JUL 18</b>
+<span>CARROM</span>
+</div>
+</div>
+
+</div>
+
+
+<!-- ROW 4 -->
+
+<div class="path-row">
+
+<div class="path-line"></div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 16 - JUL 20</b>
+<span>CHESS</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 16 - JUL 20</b>
+<span>CYCLING</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 18 - JUL 22</b>
+<span>DIVING</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 18 - JUL 22</b>
+<span>FENCING</span>
+</div>
+</div>
+
+</div>
+
+
+<!-- ROW 5 -->
+
+<div class="path-row">
+
+<div class="path-line"></div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 20 - JUL 24</b>
+<span>HANDBALL</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 20 - JUL 24</b>
+<span>HOCKEY</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 21 - JUL 25</b>
+<span>ICE HOCKEY</span>
+</div>
+</div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 22 - JUL 25</b>
+<span>JUDO</span>
+</div>
+</div>
+
+</div>
+
+
+<!-- FINAL ROW -->
+
+<div class="path-row finale-row">
+
+<div class="path-line"></div>
+
+<div class="node">
+<div class="dot"></div>
+<div class="info">
+<b>JUL 27 - JUL 28</b>
+<span>WRESTLING</span>
+</div>
+</div>
+
+<div class="node launch" aria-label="Closing Ceremony">
+<div class="dot highlight pulse"></div>
+<div class="info">
+<b>JULY 31</b>
+<span>CLOSING CEREMONY</span>
+</div>
+</div>
+
+<div class="empty"></div>
+<div class="empty"></div>
+
+</div>
+
+
+</div>
+
+</section>
+
+</div>
+
+{% endblock %}

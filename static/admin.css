@@ -1,0 +1,309 @@
+/* ======================================== */
+/* ABOUT PAGE GLOBAL FIX */
+/* ======================================== */
+
+html, body {
+overflow-y:auto !important;
+overflow-x:hidden !important;
+height:auto !important;
+}
+
+.navbar{
+top:0 !important;
+}
+
+body{
+
+font-family:Arial;
+background:#060B13;
+color:white;
+
+padding:100px 40px;
+
+}
+
+h1{
+
+text-align:center;
+margin-bottom:40px;
+color:#2d9ee0;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:#091e3a;
+
+border-radius:10px;
+
+overflow:hidden;
+
+}
+
+th,td{
+
+padding:14px;
+
+text-align:center;
+
+border-bottom:1px solid rgba(45,158,224,0.3);
+
+}
+
+th{
+
+background:#2d9ee0;
+color:white;
+
+}
+
+tr:hover{
+
+background:rgba(45,158,224,0.1);
+
+}
+
+@media(max-width:800px){
+
+table{
+
+font-size:12px;
+
+}
+
+}
+
+/* ============================= */
+/* ADMIN LOGIN */
+/* ============================= */
+
+.admin-login-section{
+
+min-height:calc(100vh - 80px);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:120px 20px;
+
+}
+
+.admin-login-box{
+
+background:#091e3a;
+
+padding:40px;
+
+border-radius:20px;
+
+width:100%;
+max-width:400px;
+
+text-align:center;
+
+border:1px solid rgba(45,158,224,0.3);
+
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+
+}
+
+.admin-login-box h2{
+
+font-family:"AesthetNova";
+
+margin-bottom:25px;
+
+color:#ffffff;
+
+}
+
+.admin-login-box input{
+
+width:100%;
+
+padding:14px;
+
+border-radius:8px;
+
+border:1px solid rgba(255,255,255,0.15);
+
+background:#060B13;
+
+color:#fff;
+
+margin-bottom:15px;
+
+}
+
+.admin-login-box button{
+
+width:100%;
+
+padding:12px;
+
+background:#2d9ee0;
+
+border:none;
+
+border-radius:25px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+.admin-login-box button:hover{
+
+background:white;
+
+color:#2d9ee0;
+
+}
+
+.error{
+
+margin-top:15px;
+
+color:#e74c3c;
+
+font-weight:bold;
+
+}
+
+/* ============================= */
+/* ADMIN DASHBOARD */
+/* ============================= */
+
+.admin-section{
+
+padding:140px 20px;
+
+}
+
+.admin-container{
+
+max-width:1100px;
+margin:auto;
+
+}
+
+/* Header */
+
+.admin-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:30px;
+
+}
+
+.admin-header h1{
+
+font-family:"AesthetNova";
+color:#2d9ee0;
+
+}
+
+/* Logout Button */
+
+.logout-btn{
+
+padding:10px 20px;
+
+background:#2d9ee0;
+
+border-radius:20px;
+
+text-decoration:none;
+
+color:white;
+
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.logout-btn:hover{
+
+background:white;
+
+color:#2d9ee0;
+
+}
+
+/* Table */
+
+.admin-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:#091e3a;
+
+border-radius:10px;
+
+overflow:hidden;
+
+}
+
+.admin-table th,
+.admin-table td{
+
+padding:14px;
+
+text-align:center;
+
+border-bottom:1px solid rgba(45,158,224,0.3);
+
+}
+
+.admin-table th{
+
+background:#2d9ee0;
+
+}
+
+.admin-table tr:hover{
+
+background:rgba(45,158,224,0.1);
+
+}
+
+/* Loading */
+
+.loading{
+
+opacity:0.6;
+
+}
+
+/* Mobile */
+
+@media(max-width:700px){
+
+.admin-header{
+
+flex-direction:column;
+gap:15px;
+
+}
+
+.admin-table{
+
+font-size:12px;
+
+}
+
+}

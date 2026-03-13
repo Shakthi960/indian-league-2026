@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='status.css') }}">
+
+<section class="status-section">
+
+<div class="status-box">
+
+<h1>CHECK REGISTRATION STATUS</h1>
+
+<input type="text" id="firstname" placeholder="First Name">
+
+<input type="text" id="lastname" placeholder="Last Name">
+
+<input type="text" id="phone" placeholder="Phone Number">
+
+<select id="state">
+
+<option value="">Representing State</option>
+
+<option>Tamil Nadu</option>
+<option>Kerala</option>
+<option>Karnataka</option>
+<option>Andhra Pradesh</option>
+<option>Telangana</option>
+<option>Goa</option>
+<option>Puducherry</option>
+
+</select>
+
+<button id="checkBtn" onclick="checkStatus()">CHECK STATUS</button>
+
+<div id="result"></div>
+
+</div>
+
+</section>
+
+
+<script>
+
+async function checkStatus(){
+
+const firstname=document.getElementById("firstname").value.trim()
+const lastname=document.getElementById("lastname").value.trim()
+const phone=document.getElementById("phone").value.trim()
+const state=document.getElementById("state").value
+
+const box=document.getElementById("result")
+const btn=document.getElementById("checkBtn")
+
+/* validation */
+
+if(!firstname || !lastname || !phone || !state){
+
+box.innerHTML='<p class="error">Please fill all fields</p>'
+return
+
+}
+
+if(!/^[0-9]{10}$/.test(phone)){
+
+box.innerHTML='<p class="error">Enter valid 10 digit phone</p>'
+return
+
+}
+
+/* loading */
+
+btn.disabled=true
+btn.innerText="Checking..."
+
+try{
+
+const res=await fetch("/check_status",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+firstname,
+lastname,
+phone,
+state
+
+})
+
+})
+
+const result=await res.json()
+
+if(result.status==="registered"){
+
+box.innerHTML=`
+
+<h2 class="success">REGISTERED</h2>
+
+<a href="/download/${result.id}" class="download">
+Download Application Form
+</a>
+
+`
+
+}else{
+
+box.innerHTML=`
+
+<h2 class="error">NOT REGISTERED</h2>
+
+<a href="/registration" class="download">
+Register Now
+</a>
+
+`
+
+}
+
+}catch(err){
+
+box.innerHTML='<p class="error">Server error. Try again.</p>'
+
+}
+
+btn.disabled=false
+btn.innerText="CHECK STATUS"
+
+}
+
+</script>
+
+{% endblock %}

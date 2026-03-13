@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+
+<section class="about-hero">
+<div class="container flex-row">
+
+<div class="hero-text">
+
+<span class="eyebrow">THE VISION</span>
+
+<h1>WHAT IS <span class="highlight">INDIAN LEAGUE?</span></h1>
+
+<p>
+Indian League is a premier national-level multi-sport competition designed
+to recognize and elevate Indian sports enthusiasts. Mirroring the spirit
+of the Olympics, we provide a massive platform for athletes to showcase
+their grit, determination, and talent on a grand stage, fostering a new
+era of sporting excellence in India.
+</p>
+
+</div>
+
+<div class="hero-logo">
+
+<img src="{{ url_for('static', filename='images/logo.png') }}" alt="Indian League Logo">
+
+</div>
+
+</div>
+</section>
+
+
+<!-- OVERVIEW -->
+
+<section class="il4-overview">
+
+<div class="container">
+
+<div class="info-grid">
+
+<div class="info-card">
+<i class="fas fa-calendar-alt"></i>
+<h3>Timeline</h3>
+<p>June 6 - July 31, 2026</p>
+</div>
+
+<div class="info-card">
+<i class="fas fa-trophy"></i>
+<h3>32 Sports</h3>
+<p>Cricket, Football, Kabaddi, Hockey & more.</p>
+</div>
+
+<div class="info-card">
+<i class="fas fa-map-marker-alt"></i>
+<h3>Host States</h3>
+<p>Goa & Pondicherry</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TORCH RELAY -->
+
+<section class="torch-relay">
+
+<div class="container">
+
+<div class="torch-content">
+
+<h2>THE <span class="highlight">IL TORCH</span> RELAY</h2>
+
+<div class="timeline">
+
+<div class="t-item">
+<strong>MAY 1</strong>
+<p>Kickoff: Pondicherry</p>
+</div>
+
+<div class="t-line"></div>
+
+<div class="t-item">
+<strong>MAY - JUNE</strong>
+<p>All State Capitals</p>
+</div>
+
+<div class="t-line"></div>
+
+<div class="t-item">
+<strong>JUNE 6</strong>
+<p>Arrival: Goa</p>
+</div>
+
+</div>
+
+<p class="torch-desc">
+A symbol of unity and fire, the IL Torch travels the length and breadth
+of India, igniting the spirit of competition in every heart.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- OPENING CEREMONY -->
+
+<section class="ceremony opening">
+    <div class="container">
+        <span class="eyebrow">JUNE 6, 2026 | 5:00 PM</span>
+        <h2>OPENING <span class="highlight">CEREMONY</span></h2>
+        <p class="venue-text">Pandit Jawaharlal Nehru Stadium, Goa</p>
+
+        <h3 class="sub-heading">Special Guests</h3>
+        <div class="people-grid">
+            <div class="person"><img src="{{ url_for('static', filename='images/emmanuel_il4.jpeg') }}" alt="Emmanuel"><span>Emmanuel</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/nirmala_il4.jpeg') }}" alt="Nirmala"><span>Nirmala</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/modi_il4.jpeg') }}" alt="Modi"><span>Narendra Modi</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/putin_il4.jpeg') }}" alt="Putin"><span>Vladimir Putin</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/jayshah_il4.jpeg') }}" alt="Jay Shah"><span>Jay Shah</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/pramodsawat_il4.jpeg') }}" alt="Pramod Sawat"><span>Pramod Sawat</span></div>
+        </div>
+
+        <h3 class="sub-heading">Performances</h3>
+        <div class="people-grid">
+            <div class="person"><img src="{{ url_for('static', filename='images/anirudh_il4.jpeg') }}" alt="Anirudh"><span>Anirudh Ravichander</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/sreeleela_il4.jpeg') }}" alt="Sreeleela"><span>Sreeleela</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/urvashi_il4.jpeg') }}" alt="Urvashi"><span>Urvashi Rautela</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/keerthi_il4.jpeg') }}" alt="Keerthy"><span>Keerthy Suresh</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/rukmini_il4.jpeg') }}" alt="Rukmini"><span>Rukmini Vasanth</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/norafatehi_il4.jpeg') }}" alt="Nora"><span>Nora Fatehi</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="ceremony closing">
+    <div class="container">
+        <span class="eyebrow">JULY 31, 2026 | 4:00 PM</span>
+        <h2>CLOSING <span class="highlight">CEREMONY</span></h2>
+        <p class="venue-text">Puducherry Cricket Stadium, Pondicherry</p>
+
+        <h3 class="sub-heading">Special Guests</h3>
+        <div class="people-grid">
+            <div class="person"><img src="{{ url_for('static', filename='images/dhroupati_il4.jpeg') }}" alt="Droupati"><span>Droupadi Murmu</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/xijinping_il4.jpeg') }}" alt="Xi Jinping"><span>Xi Jinping</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/meloni_il4.jpeg') }}" alt="Meloni"><span>Giorgia Meloni</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/jackiechan_il4.jpeg') }}" alt="Jackie Chan"><span>Jackie Chan</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/miketyson_il4.jpeg') }}" alt="Mike Tyson"><span>Mike Tyson</span></div>
+        </div>
+
+        <h3 class="sub-heading">Performances</h3>
+        <div class="people-grid">
+            <div class="person"><img src="{{ url_for('static', filename='images/shreya_il4.jpeg') }}" alt="Shreya"><span>Shreya Ghoshal</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/mouniroy_il4.jpeg') }}" alt="Mouni Roy"><span>Mouni Roy</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/poojahedge_il4.jpeg') }}" alt="Pooja Hegde"><span>Pooja Hegde</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/sunnyleone_il4.jpeg') }}" alt="Sunny Leone"><span>Sunny Leone</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/sanya_il4.jpeg') }}" alt="Sanya"><span>Sanya Malhotra</span></div>
+            <div class="person"><img src="{{ url_for('static', filename='images/taylorswift_il4.jpeg') }}" alt="Taylor Swift"><span>Taylor Swift</span></div>
+        </div>
+        
+        </div>
+
+
+
+<div class="prize-info">
+
+<i class="fas fa-medal"></i>
+
+<p>
+Trophies and prizes will be awarded to the champions
+during the closing ceremony.
+</p>
+
+</div>
+
+
+<div class="vote-thanks">
+
+<h3>VOTE OF THANKS</h3>
+
+<p>Delivered by <strong>Mr. Shakthi</strong></p>
+
+<span class="title-tag">
+President, KVVSH Group of Companies
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

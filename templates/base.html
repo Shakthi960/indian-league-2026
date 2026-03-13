@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Indian League 4</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="stadium-lights"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar" id="navbar">
+
+<div class="logo-small">
+<a href="/">
+<img src="{{ url_for('static', filename='images/logo.png') }}" alt="IL4 Logo">
+</a>
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/sports">Sports</a></li>
+<li><a href="/schedule">Schedule</a></li>
+<li><a href="/registration">Register</a></li>
+<li><a href="/status">Status</a></li>
+<li><a href="/admin">Admin</a></li>
+
+</ul>
+
+</nav>
+
+<!-- MAIN CONTENT -->
+
+<main>
+
+{% block content %}{% endblock %}
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<div class="footer-brand">
+
+<img src="{{ url_for('static', filename='images/logo.png') }}" class="footer-logo">
+
+<p>
+Experience the ultimate multi-sport extravaganza.
+Indian League 4 brings the spirit of the Olympics
+to Goa & Pondicherry.
+</p>
+
+<div class="social-links">
+
+<a href="#" class="social-icon">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="#" class="social-icon">
+<i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="#" class="social-icon">
+<i class="fab fa-x-twitter"></i>
+</a>
+
+<a href="#" class="social-icon">
+<i class="fab fa-youtube"></i>
+</a>
+
+</div>
+
+</div>
+
+
+<div class="footer-links">
+
+<h3>Quick Navigation</h3>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+<li><a href="/sports">Sports</a></li>
+<li><a href="/schedule">Schedule</a></li>
+<li><a href="/registration">Register</a></li>
+<li><a href="/status">Status</a></li>
+<li><a href="/admin">Admin</a></li>
+
+</ul>
+
+</div>
+
+
+<div class="footer-info">
+
+<h3>Headquarters</h3>
+
+<p>
+KVVSH Group of Companies Pvt Ltd<br>
+Panjim, Goa – India
+</p>
+
+<p class="email-link">contact@kvvsh.ct.ws</p>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+<p>
+© 2026 Indian League 4 | KVVSH Group of Companies | All rights reserved.
+</p>
+
+</div>
+
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

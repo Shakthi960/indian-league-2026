@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+<section class="admin-login-section">
+
+<div class="admin-login-box">
+
+<h2>Admin Login</h2>
+
+<form method="POST">
+
+<input 
+type="password" 
+name="password" 
+placeholder="Enter Admin Password"
+required
+>
+
+<button type="submit">Login</button>
+
+</form>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+</div>
+
+</section>
+
+{% endblock %}

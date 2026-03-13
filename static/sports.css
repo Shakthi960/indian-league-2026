@@ -1,0 +1,232 @@
+/* ======================================== */
+/* SPORTS PAGE GLOBAL FIX */
+/* ======================================== */
+
+html, body {
+overflow-y:auto !important;
+overflow-x:hidden !important;
+height:auto !important;
+}
+
+.navbar{
+top:0 !important;
+}
+
+/* ======================================= */
+/* SPORTS PAGE */
+/* ======================================= */
+
+.sports-page{
+
+background:#060B13;
+
+overflow-y:auto!important;
+
+min-height:100vh;
+
+}
+
+/* Container */
+
+.sports-page .container{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:0 20px;
+
+}
+
+/* Hero */
+
+.sports-hero{
+
+padding:160px 20px 60px;
+
+text-align:center;
+
+}
+
+.sports-hero p{
+
+color:#B8C6D6;
+
+margin-top:15px;
+
+letter-spacing:1px;
+
+}
+
+/* Grid */
+
+.sports-grid-section{
+
+padding-bottom:100px;
+
+}
+
+.sports-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+gap:25px;
+
+}
+
+/* Card */
+
+.sport-card{
+
+position:relative;
+
+background:rgba(45,158,224,0.05);
+
+border:1px solid rgba(45,158,224,0.2);
+
+border-radius:20px;
+
+padding:40px 20px;
+
+text-align:center;
+
+overflow:hidden;
+
+transition:0.4s;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+backdrop-filter:blur(5px);
+
+cursor:pointer;
+
+}
+
+/* Icon */
+
+.sport-card i{
+
+font-size:45px;
+
+color:#2d9ee0;
+
+margin-bottom:20px;
+
+transition:0.4s;
+
+}
+
+/* Name */
+
+.sport-card span{
+
+font-family:"AesthetNova";
+
+font-size:18px;
+
+font-weight:700;
+
+color:#ffffff;
+
+letter-spacing:1px;
+
+text-transform:uppercase;
+
+}
+
+/* Hover */
+
+.sport-card:hover{
+
+background:rgba(45,158,224,0.15);
+
+border-color:#2d9ee0;
+
+transform:translateY(-10px);
+
+box-shadow:0 15px 35px rgba(45,158,224,0.2);
+
+}
+
+.sport-card:hover i{
+
+transform:scale(1.2);
+
+color:#ffffff;
+
+filter:drop-shadow(0 0 10px #2d9ee0);
+
+}
+
+/* Glow Scan Effect */
+
+.sport-card::after{
+
+content:"";
+
+position:absolute;
+
+top:-50%;
+left:-50%;
+
+width:200%;
+height:200%;
+
+background:linear-gradient(
+45deg,
+transparent,
+rgba(255,255,255,0.05),
+transparent
+);
+
+transform:rotate(45deg);
+
+transition:0.6s;
+
+}
+
+.sport-card:hover::after{
+
+left:100%;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.sports-grid{
+
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+
+gap:15px;
+
+}
+
+.sport-card{
+
+padding:30px 10px;
+
+}
+
+.sport-card i{
+
+font-size:35px;
+
+}
+
+.sport-card span{
+
+font-size:14px;
+
+}
+
+}
