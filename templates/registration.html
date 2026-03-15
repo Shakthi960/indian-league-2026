@@ -11,116 +11,64 @@
 <h1>INDIAN LEAGUE 4 <span class="highlight">REGISTRATION</span></h1>
 
 <form id="registerForm">
+    <div class="form-grid">
+        <input type="text" name="firstname" placeholder="First Name*" required>
+        <input type="text" name="middlename" placeholder="Middle Name">
+        <input type="text" name="lastname" placeholder="Last Name*" required>
+        <input type="email" name="email" placeholder="Email ID*" required>
+        <input type="tel" name="phone" id="phone" placeholder="Phone Number*" required>
+        <input type="date" name="dob" id="dob" required>
+        <input type="number" name="age" id="age" min="18" max="40" placeholder="Age*" required readonly>
 
-<div class="form-grid">
+        <select name="sport" id="sport" required>
+            <option value="">Select Sport*</option>
+            <option>Archery</option>
+            <option>Athletics</option>
+            <option>Badminton</option>
+            <option>Basketball</option>
+            <option>Beach Handball</option>
+            <option>Beach Volleyball</option>
+            <option>Boxing</option>
+            <option>Carrom</option>
+            <option>Chess</option>
+            <option>Cricket</option>
+            <option>Cycling</option>
+            <option>Diving</option>
+            <option>Fencing</option>
+            <option>Football</option>
+            <option>Handball</option>
+            <option>Hockey</option>
+            <option>Ice Hockey</option>
+            <option>Judo</option>
+            <option>Kabaddi</option>
+            <option>Karate</option>
+            <option>Kho Kho</option>
+            <option>Rowing</option>
+            <option>Shooting</option>
+            <option>Speed Skating</option>
+            <option>Squash</option>
+            <option>Swimming</option>
+            <option>Table Tennis</option>
+            <option>Tennis</option>
+            <option>Trampoline</option>
+            <option>Volleyball</option>
+            <option>Weightlifting</option>
+            <option>Wrestling</option>
+        </select>
 
-<input type="text" name="firstname" placeholder="First Name*" required>
+        <select name="state" id="state" required>
+            <option value="">Representing State*</option>
+            </select>
 
-<input type="text" name="middlename" placeholder="Middle Name">
-
-<input type="text" name="lastname" placeholder="Last Name*" required>
-
-<input type="email" name="email" placeholder="Email ID*" required>
-
-<input type="tel" name="phone" id="phone" placeholder="Phone Number*" required>
-
-<input type="date" name="dob" id="dob" required>
-
-<input type="number" name="age" id="age" min="18" max="40" placeholder="Age*" required readonly>
-
-<select name="state" required>
-
-<option value="">Representing State*</option>
-
-<option>Tamil Nadu</option>
-<option>Kerala</option>
-<option>Karnataka</option>
-<option>Andhra Pradesh</option>
-<option>Telangana</option>
-<option>Maharashtra</option>
-<option>Gujarat</option>
-<option>Rajasthan</option>
-<option>Punjab</option>
-<option>Haryana</option>
-<option>Uttar Pradesh</option>
-<option>Uttarakhand</option>
-<option>West Bengal</option>
-<option>Odisha</option>
-<option>Bihar</option>
-<option>Jharkhand</option>
-<option>Assam</option>
-<option>Manipur</option>
-<option>Meghalaya</option>
-<option>Mizoram</option>
-<option>Nagaland</option>
-<option>Tripura</option>
-<option>Sikkim</option>
-<option>Arunachal Pradesh</option>
-<option>Goa</option>
-<option>Delhi</option>
-<option>Puducherry</option>
-<option>Lakshadweep</option>
-<option>Andaman & Nicobar</option>
-<option>Chandigarh</option>
-<option>Dadra & Nagar Haveli</option>
-<option>Daman & Diu</option>
-<option>Ladakh</option>
-<option>Jammu & Kashmir</option>
-
-</select>
-
-<select name="sport" required>
-
-<option value="">Select Sport*</option>
-
-<option>Cricket</option>
-<option>Football</option>
-<option>Kabaddi</option>
-<option>Hockey</option>
-<option>Badminton</option>
-<option>Archery</option>
-<option>Athletics</option>
-<option>Basketball</option>
-<option>Beach Handball</option>
-<option>Beach Volleyball</option>
-<option>Boxing</option>
-<option>Carrom</option>
-<option>Chess</option>
-<option>Cycling</option>
-<option>Diving</option>
-<option>Fencing</option>
-<option>Handball</option>
-<option>Ice Hockey</option>
-<option>Judo</option>
-<option>Karate</option>
-<option>Kho Kho</option>
-<option>Rowing</option>
-<option>Shooting</option>
-<option>Speed Skating</option>
-<option>Squash</option>
-<option>Swimming</option>
-<option>Table Tennis</option>
-<option>Tennis</option>
-<option>Trampoline</option>
-<option>Volleyball</option>
-<option>Weightlifting</option>
-<option>Wrestling</option>
-
-</select>
-
-<div class="file-upload">
-
-<label>Passport Size Photo (Max 2MB)*</label>
-
-<input type="file" name="photo" id="photo" accept="image/*" required>
-
-</div>
-
-</div>
-
-<button class="next-btn">NEXT</button>
-
+        <div class="file-upload">
+            <label>Passport Size Photo (Max 2MB)*</label>
+            <input type="file" name="photo" id="photo" accept="image/*" required>
+        </div>
+    </div>
+    <button class="next-btn">NEXT</button>
 </form>
+
+
 
 </div>
 
@@ -128,92 +76,147 @@
 
 
 <script>
+    // Configuration - Alphabetized
+    const allStates = [
+        "Andaman & Nicobar",
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chandigarh",
+        "Chhattisgarh",
+        "Dadra & Nagar Haveli and Daman & Diu",
+        "Delhi",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jammu & Kashmir",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Ladakh",
+        "Lakshadweep",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Puducherry",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal"
+    ];
 
-/* Auto calculate age */
+    // States to exclude for Football and Kabaddi
+    const excludedStates = [
+        "Andaman & Nicobar",
+        "Chandigarh",
+        "Dadra & Nagar Haveli and Daman & Diu",
+        "Ladakh",
+        "Lakshadweep",
+        "Sikkim"
+    ];
 
-document.getElementById("dob").addEventListener("change",function(){
+    const sportSelect = document.getElementById("sport");
+    const stateSelect = document.getElementById("state");
 
-let dob = new Date(this.value)
+    // Function to populate states based on sport
+    function updateStates() {
+        const selectedSport = sportSelect.value;
+        const currentState = stateSelect.value;
+        
+        // Clear existing options except the first one
+        stateSelect.innerHTML = '<option value="">Representing State*</option>';
 
-let today = new Date()
+        allStates.forEach(state => {
+            // Check if sport is Football/Kabaddi and if state is in the excluded list
+            const isExcludedSport = (selectedSport === "Football" || selectedSport === "Kabaddi");
+            const isExcludedState = excludedStates.includes(state);
 
-let age = today.getFullYear() - dob.getFullYear()
+            if (!(isExcludedSport && isExcludedState)) {
+                const option = document.createElement("option");
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            }
+        });
 
-let m = today.getMonth() - dob.getMonth()
+        // Re-select previous state if it's still available, else reset
+        if ([...stateSelect.options].some(opt => opt.value === currentState)) {
+            stateSelect.value = currentState;
+        } else {
+            stateSelect.value = "";
+        }
+    }
 
-if(m < 0 || (m === 0 && today.getDate() < dob.getDate())){
+    // Listen for sport changes
+    sportSelect.addEventListener("change", updateStates);
 
-age--
+    // Initial population
+    updateStates();
 
-}
+    /* Auto calculate age */
+    document.getElementById("dob").addEventListener("change", function() {
+        let dob = new Date(this.value);
+        let today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        let m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        document.getElementById("age").value = age;
+    });
 
-document.getElementById("age").value = age
+    /* Form Submit */
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const age = document.getElementById("age").value;
+        const phone = document.getElementById("phone").value;
+        const fileInput = document.getElementById("photo");
 
-})
+        if (age < 18 || age > 40) {
+            alert("Age must be between 18 and 40");
+            return;
+        }
 
+        if (!/^[0-9]{10}$/.test(phone)) {
+            alert("Enter valid 10 digit phone number");
+            return;
+        }
 
-/* Form Submit */
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("Please upload photo");
+            return;
+        }
 
-document.getElementById("registerForm").addEventListener("submit",function(e){
+        if (file.size > 2 * 1024 * 1024) {
+            alert("Photo must be less than 2MB");
+            return;
+        }
 
-e.preventDefault()
+        const reader = new FileReader();
+        const formData = new FormData(this);
 
-const age = document.getElementById("age").value
-const phone = document.getElementById("phone").value
-const fileInput = document.getElementById("photo")
+        for (let pair of formData.entries()) {
+            localStorage.setItem(pair[0], pair[1]);
+        }
 
-if(age < 18 || age > 40){
-
-alert("Age must be between 18 and 40")
-return
-
-}
-
-if(!/^[0-9]{10}$/.test(phone)){
-
-alert("Enter valid 10 digit phone number")
-return
-
-}
-
-const file = fileInput.files[0]
-
-if(!file){
-
-alert("Please upload photo")
-return
-
-}
-
-if(file.size > 2 * 1024 * 1024){
-
-alert("Photo must be less than 2MB")
-return
-
-}
-
-const reader = new FileReader()
-
-const formData = new FormData(this)
-
-for (let pair of formData.entries()) {
-
-localStorage.setItem(pair[0], pair[1])
-
-}
-
-reader.onload = function(){
-
-localStorage.setItem("photo", reader.result)
-
-window.location="/preview"
-
-}
-
-reader.readAsDataURL(file)
-
-})
-
+        reader.onload = function() {
+            localStorage.setItem("photo", reader.result);
+            window.location = "/preview";
+        }
+        reader.readAsDataURL(file);
+    });
 </script>
 
 {% endblock %}

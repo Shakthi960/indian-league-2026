@@ -15,6 +15,11 @@
     box-sizing: border-box;
 }
 
+html, body{
+width:100%;
+overflow-x:hidden;
+}
+
 body{
     background:#060B13;
     color:#E6EEF6;
@@ -241,7 +246,7 @@ overflow:visible;
     align-items: center;
     height: 600px;
     padding: 80px;
-    margin-top: 50px;
+    margin-top: 0px;
     text-align: center;
     overflow: hidden;
 }
@@ -826,6 +831,59 @@ overflow:visible;
 
 @media (max-width:900px){
 
+.logo-circle,
+.logo-ring{
+will-change: transform;
+}
+
+/* MOBILE LOGO INTRO ANIMATION */
+
+.logo-circle{
+animation: mobileLogoIntro 2.2s ease-out forwards;
+}
+
+.logo-ring{
+animation:
+ringRotate 12s linear infinite,
+mobileRingIntro 2.2s ease-out;
+}
+
+@keyframes mobileLogoIntro{
+
+0%{
+transform:scale(0.6);
+opacity:0;
+}
+
+60%{
+transform:scale(1.15);
+opacity:1;
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+@keyframes mobileRingIntro{
+
+0%{
+transform:scale(0.4);
+opacity:0;
+}
+
+60%{
+transform:scale(1.2);
+opacity:1;
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
 .hamburger{
 display:flex;
 }
@@ -860,11 +918,30 @@ text-align:center;
 @media (max-width:900px){
 
 /* INTRO SECTION */
+.intro {
+    min-height: auto;
+    padding-top: 60px;  
+    padding-bottom: 20px; 
+}
 
-.intro{
-height:auto;
-padding:110px 0 60px;
-padding-top: 100px;
+.logo-wrapper {
+    margin-bottom: -30px;
+}
+
+/* MOBILE NAVBAR FIX */
+
+.navbar{
+height:70px;
+padding:0 20px;
+border-radius:0 0 25px 25px;
+}
+
+.logo-small img{
+width:42px;
+}
+
+.hamburger{
+margin-left:auto;
 }
 
 
@@ -872,14 +949,15 @@ padding-top: 100px;
 
 .oval{
 flex-direction:column;
+align-items:center;
+justify-content:center;
 height:auto;
-margin: 0px;
-padding:0px 20px;
-border: none;
-gap:30px;
-height: 300px;
-background: none;
-box-shadow: none;
+margin:0;
+padding:0;
+border:none;
+gap:20px;
+background:none;
+box-shadow:none;
 }
 
 .logo-wrapper{
@@ -887,7 +965,7 @@ order:-1;
 }
 
 .about h1{
-display: none;
+display: none !important;
 }
 
 .about p{
@@ -898,31 +976,36 @@ line-height:1.7;
 
 /* WHEEL */
 
-.logo-ring{
-display: flex;
-justify-content: center;
-align-items: center;
-width: 340px;
-height: 340px;
-border: 2px solid rgba(45, 158, 224, 0.259);
-border-radius: 50%;
-margin-top: -50px;
-
-}
-
 .about {
-    opacity: 0 !important;
-    transform: translateY(30px) !important;
-    transition: opacity 0.8s ease, transform 0.8s ease !important;
+    display: none;
 }
 
+/* THE OUTER RING */
+.logo-ring {
+    display: flex;          /* Use flex to center the child */
+    justify-content: center;
+    align-items: center;
+    width: 340px;
+    height: 340px;
+    border: 2px solid rgba(45, 158, 224, 0.259);
+    border-radius: 50%;
+    margin: 100px auto;         /* Centers the ring horizontally in the container */
+}
+
+/* THE INNER BLUE CIRCLE */
 .logo-circle {
-    margin-top: -50px;
+    margin: 80px; /* Remove the -10px that was pushing it up */
     width: 300px;
     height: 300px;
     border: 5px solid #2f80ed;
+    border-radius: 50%;       /* Ensure this is exactly 50% */
     background: radial-gradient(circle, #2d9ee0, #091e3a);
     box-shadow: 0 0 60px rgba(47, 128, 237, 0.5), inset 0 0 30px rgba(0, 0, 0, 0.7);
+    
+    /* Center the Tiger Image inside this circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-circle img{
@@ -935,6 +1018,12 @@ width:150px;
 .slant-section{
 height:auto;
 padding:70px 20px;
+margin-top:-20px;
+}
+
+.eyebrow {
+    padding-top: 10px;
+    font-size: 12px;
 }
 
 .slant-container{
@@ -947,11 +1036,11 @@ text-align:center;
 }
 
 .main-title .lite{
-font-size:38px;
+font-size:30px;
 }
 
 .main-title .bold{
-font-size:56px;
+font-size:42px;
 }
 
 .event-details{
@@ -961,11 +1050,11 @@ align-items:center;
 }
 
 .big-day{
-font-size:55px;
+font-size:48px;
 }
 
 .city-name{
-font-size:34px;
+font-size:30px;
 }
 
 

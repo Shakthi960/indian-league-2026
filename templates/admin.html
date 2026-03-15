@@ -1,107 +1,186 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 
 <section class="admin-section">
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>ADMIN DASHBOARD</h1>
+            <div class="header-actions">
+                <button onclick="downloadExcel()" class="download-btn">Export Excel</button>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
 
-<div class="admin-container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label>State / UT:</label>
+                <select id="stateFilter" onchange="applyFilters()">
+                    <option value="all">All India (36 States/UTs)</option>
+                    <optgroup label="States">
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                    </optgroup>
+                    <optgroup label="Union Territories">
+                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Puducherry">Puducherry</option>
+                    </optgroup>
+                </select>
+            </div>
 
-<div class="admin-header">
+            <div class="filter-group">
+                <label>Sport:</label>
+                <select id="sportFilter" onchange="applyFilters()">
+                    <option value="all">All 32 Sports</option>
+                    <option value="Cricket">Cricket</option>
+                    <option value="Football">Football</option>
+                    <option value="Kabaddi">Kabaddi</option>
+                    <option value="Archery">Archery</option>
+                    <option value="Athletics">Athletics</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value="Basketball">Basketball</option>
+                    <option value="Beach Handball">Beach Handball</option>
+                    <option value="Beach Volleyball">Beach Volleyball</option>
+                    <option value="Boxing">Boxing</option>
+                    <option value="Carrom">Carrom</option>
+                    <option value="Chess">Chess</option>
+                    <option value="Cycling">Cycling</option>
+                    <option value="Diving">Diving</option>
+                    <option value="Fencing">Fencing</option>
+                    <option value="Handball">Handball</option>
+                    <option value="Hockey">Hockey</option>
+                    <option value="Ice Hockey">Ice Hockey</option>
+                    <option value="Judo">Judo</option>
+                    <option value="Karate">Karate</option>
+                    <option value="Kho Kho">Kho Kho</option>
+                    <option value="Rowing">Rowing</option>
+                    <option value="Shooting">Shooting</option>
+                    <option value="Speed Skating">Speed Skating</option>
+                    <option value="Squash">Squash</option>
+                    <option value="Swimming">Swimming</option>
+                    <option value="Table Tennis">Table Tennis</option>
+                    <option value="Tennis">Tennis</option>
+                    <option value="Trampoline">Trampoline</option>
+                    <option value="Volleyball">Volleyball</option>
+                    <option value="Weightlifting">Weightlifting</option>
+                    <option value="Wrestling">Wrestling</option>
+                </select>
+            </div>
 
-<h1>INDIAN LEAGUE 4 - ADMIN DASHBOARD</h1>
+            <div class="stats-box">
+                COUNT: <span id="playerCount">0</span>
+            </div>
+        </div>
 
-<a href="/logout" class="logout-btn">Logout</a>
-
-</div>
-
-<table class="admin-table">
-
-<thead>
-
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Phone</th>
-<th>State</th>
-<th>Sport</th>
-</tr>
-
-</thead>
-
-<tbody id="playersTable">
-
-<tr>
-<td colspan="5" class="loading">Loading players...</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
+        <div class="table-responsive">
+            <table class="admin-table" id="exportTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>State</th>
+                        <th>Sport</th>
+                    </tr>
+                </thead>
+                <tbody id="playersTable">
+                    <tr>
+                        <td colspan="5" class="loading">Loading players...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
-
 <script>
+let allPlayers = [];
 
-async function loadPlayers(){
-
-try{
-
-const res = await fetch("/get_players")
-const data = await res.json()
-
-const tableBody = document.getElementById("playersTable")
-
-if(!data.players || data.players.length === 0){
-
-tableBody.innerHTML = `
-<tr>
-<td colspan="5">No players registered yet.</td>
-</tr>
-`
-return
+async function loadPlayers() {
+    try {
+        const res = await fetch("/get_players");
+        const data = await res.json();
+        allPlayers = data.players || [];
+        renderTable(allPlayers);
+    } catch (err) {
+        document.getElementById("playersTable").innerHTML = `<tr><td colspan="5">Server Error</td></tr>`;
+    }
 }
 
-let rows = ""
+function applyFilters() {
+    const state = document.getElementById("stateFilter").value;
+    const sport = document.getElementById("sportFilter").value;
 
-data.players.forEach(p => {
+    const filtered = allPlayers.filter(p => {
+        return (state === "all" || p.state === state) && 
+               (sport === "all" || p.sport === sport);
+    });
 
-rows += `
-
-<tr>
-
-<td>${p.id}</td>
-<td>${p.name}</td>
-<td>${p.phone}</td>
-<td>${p.state}</td>
-<td>${p.sport}</td>
-
-</tr>
-
-`
-
-})
-
-tableBody.innerHTML = rows
-
-}catch(err){
-
-document.getElementById("playersTable").innerHTML = `
-<tr>
-<td colspan="5">Failed to load players.</td>
-</tr>
-`
-
+    renderTable(filtered);
 }
 
+function renderTable(data) {
+    const tableBody = document.getElementById("playersTable");
+    document.getElementById("playerCount").innerText = data.length;
+
+    if (data.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5">No players found.</td></tr>`;
+        return;
+    }
+
+    tableBody.innerHTML = data.map(p => `
+        <tr>
+            <td data-label="ID">${p.id}</td>
+            <td data-label="Name">${p.name}</td>
+            <td data-label="Phone">${p.phone}</td>
+            <td data-label="State">${p.state}</td>
+            <td data-label="Sport">${p.sport}</td>
+        </tr>
+    `).join('');
 }
 
-document.addEventListener("DOMContentLoaded", loadPlayers)
+// EXCEL DOWNLOAD FUNCTION
+function downloadExcel() {
+    const table = document.getElementById("exportTable");
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Participants" });
+    const date = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, `IL4_Participants_${date}.xlsx`);
+}
 
+document.addEventListener("DOMContentLoaded", loadPlayers);
 </script>
-
 {% endblock %}

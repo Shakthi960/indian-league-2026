@@ -251,6 +251,20 @@ text-align:center;
 
 }
 
+.person {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This forces both the image and the span to the center */
+    text-align: center;
+    width: 100%;
+}
+
+.person span {
+    display: block;
+    margin-top: 8px;
+    width: 100%; /* Ensures the text takes the full width to center properly */
+}
+
 .person img{
 
 width:150px;
@@ -281,6 +295,50 @@ box-shadow:0 0 20px rgba(45,158,224,0.5);
 font-size:14px;
 font-weight:bold;
 
+}
+
+/* ======================================== */
+/* PEOPLE GRID & LABELS */
+/* ======================================== */
+
+.people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 30px;
+    justify-content: center; /* Centers the whole grid */
+    justify-items: center;    /* Centers items inside grid cells */
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* PERFECT CENTERING */
+    text-align: center;
+    width: 100%;
+}
+
+.person img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid #2d9ee0;
+    margin-bottom: 12px;
+}
+
+.p-name {
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.p-job {
+    display: block;
+    font-size: 12px;
+    color: #2d9ee0; /* Highlight color for profession */
+    margin-top: 4px;
+    opacity: 0.9;
 }
 
 /* ======================================== */
@@ -330,18 +388,141 @@ margin-top:10px;
 }
 
 /* ======================================== */
-/* RESPONSIVE */
+/* RESPONSIVE (TABLET & MOBILE)             */
 /* ======================================== */
 
-@media(max-width:768px){
+@media (max-width: 900px) {
+    section {
+        padding: 60px 0;
+    }
 
-.hero-text h1{
-font-size:40px;
+    .container {
+        padding: 0 20px;
+    }
+
+    /* HERO SECTION */
+    .about-hero {
+        margin-top: 60px; /* Aligns with smaller navbar */
+    }
+
+    .flex-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 38px;
+    }
+
+    .hero-logo img {
+        width: 200px;
+    }
+
+    /* TORCH RELAY - Change from horizontal to vertical */
+    .timeline {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .t-line {
+        width: 2px;
+        height: 30px;
+        margin: 5px 0;
+    }
+
+    .t-item {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    /* PEOPLE GRID - Ensure 2 columns on small mobile */
+    .people-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .person img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .venue-text {
+        font-size: 18px;
+    }
+
+    /* PRIZE INFO */
+    .prize-info {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 20px;
+    }
 }
 
-.flex-row{
-flex-direction:column;
-text-align:center;
+/* SMALL PHONES */
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 32px;
+    }
+
+    .people-grid {
+        /* Force 2 columns even on tiny screens to save vertical space */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .person img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .person span {
+        font-size: 12px;
+    }
+
+    .sub-heading {
+        font-size: 22px;
+        margin: 40px 0 20px;
+    }
+
+    .people-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 20px;
+        justify-items: center; /* Aligns the person div in the center of the grid cell */
+    }
+
+    .person img {
+        width: 130px; /* Slightly smaller for mobile comfort */
+        height: 130px;
+    }
 }
 
+@media (max-width: 768px) {
+    /* Force 2 columns and ensure items stay centered */
+    .people-grid {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 20px;
+    }
+
+    .person img {
+        width: 120px !important; /* Smaller images for mobile */
+        height: 120px !important;
+    }
+
+    .p-name {
+        margin-top: -30px;
+        font-size: 14px;
+    }
+
+    .p-job {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Even smaller for tiny phones */
+    .person img {
+        width: 100px !important;
+        height: 100px !important;
+    }
 }

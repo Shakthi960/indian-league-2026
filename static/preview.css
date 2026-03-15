@@ -198,3 +198,80 @@ border-radius:6px;
 background:#1b7ec4;
 
 }
+
+/* ======================================== */
+/* UPDATED A4 PAGE - RESPONSIVE             */
+/* ======================================== */
+
+.a4-page {
+    width: 210mm;
+    min-height: 297mm;
+    /* Increase the first number (top margin) to 120px or 150px */
+    margin: 120px auto 50px auto; 
+    background: white;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1; /* Ensures it stays under the navbar dropdown but above the body */
+}
+
+/* TABLET & MOBILE VIEW */
+@media (max-width: 210mm) {
+    .a4-page {
+        width: 95%;
+        /* Keep a healthy margin on mobile too so the logo isn't hidden */
+        margin: 90px auto 30px auto; 
+        padding: 20px;
+        min-height: auto;
+    }
+
+    .form-header {
+        flex-direction: column; /* Stack logo, title, and photo */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .row {
+        flex-direction: column; /* Label on top of the value */
+        gap: 5px;
+    }
+
+    .row label {
+        width: 100%;
+        color: #2d9ee0; /* Make label distinct */
+        font-size: 13px;
+    }
+
+    .logo {
+        width: 60px;
+    }
+
+    .photo {
+        width: 100px;
+        height: 120px;
+    }
+
+    .title h1 {
+        font-size: 20px;
+    }
+
+    /* ACCEPT SECTION FIX */
+    .accept {
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        margin-bottom: 40px;
+    }
+
+    .accept label {
+        display: block;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .accept button {
+        width: 100%; /* Full width button for easy tapping */
+        padding: 15px;
+    }
+}

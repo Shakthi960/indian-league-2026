@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initially hide navbar on desktop to prevent it from showing early
     if (window.innerWidth >= 900 && navbar) {
-        navbar.style.top = "-100px"; 
+    navbar.style.top = "-100px";
+    } else {
+        if(navbar) navbar.style.top = "0";
     }
 
     function playIntro() {
@@ -87,9 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!sportNameEl) return;
 
     const sportsData = [
-        { name: "Cricket", start: "JUN 07", end: "JUL 04", icon: "fa-cricket-bat-ball" },
-        { name: "Football", start: "JUN 07", end: "JUN 27", icon: "fa-soccer-ball" },
-        { name: "Kabaddi", start: "JUN 28", end: "JUL 11", icon: "fa-users-rays" },
         { name: "Archery", start: "JUL 05", end: "JUL 07", icon: "fa-bullseye" },
         { name: "Athletics", start: "JUL 05", end: "JUL 12", icon: "fa-person-running" },
         { name: "Badminton", start: "JUL 08", end: "JUL 14", icon: "fa-table-tennis-paddle-ball" },
@@ -99,13 +98,16 @@ document.addEventListener("DOMContentLoaded", function () {
         { name: "Boxing", start: "JUL 14", end: "JUL 18", icon: "fa-hand-fist" },
         { name: "Carrom", start: "JUL 14", end: "JUL 18", icon: "fa-square" },
         { name: "Chess", start: "JUL 16", end: "JUL 20", icon: "fa-chess" },
+        { name: "Cricket", start: "JUN 07", end: "JUL 04", icon: "fa-cricket-bat-ball" },
         { name: "Cycling", start: "JUL 16", end: "JUL 20", icon: "fa-bicycle" },
         { name: "Diving", start: "JUL 18", end: "JUL 22", icon: "fa-water" },
         { name: "Fencing", start: "JUL 18", end: "JUL 22", icon: "fa-fencing-fights" },
+        { name: "Football", start: "JUN 07", end: "JUN 27", icon: "fa-soccer-ball" },
         { name: "Handball", start: "JUL 20", end: "JUL 24", icon: "fa-circle-dot" },
         { name: "Hockey", start: "JUL 20", end: "JUL 24", icon: "fa-hockey-puck" },
         { name: "Ice Hockey", start: "JUL 21", end: "JUL 25", icon: "fa-icicles" },
         { name: "Judo", start: "JUL 22", end: "JUL 25", icon: "fa-user-ninja" },
+        { name: "Kabaddi", start: "JUN 28", end: "JUL 10", icon: "fa-users-rays" },
         { name: "Karate", start: "JUL 22", end: "JUL 26", icon: "fa-hand-back-fist" },
         { name: "Kho Kho", start: "JUL 23", end: "JUL 26", icon: "fa-arrows-left-right" },
         { name: "Rowing", start: "JUL 23", end: "JUL 27", icon: "fa-ship" },

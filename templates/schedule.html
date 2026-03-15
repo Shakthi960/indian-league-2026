@@ -1,271 +1,226 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <link rel="stylesheet" href="{{ url_for('static', filename='schedule.css') }}">
 
 <div class="schedule-page">
+    <header class="schedule-hero">
+        <div class="container hero-content">
+            <span class="eyebrow">ROAD TO GLORY</span>
+            <h1 class="main-title">
+                <span class="lite">EVENT</span>
+                <span class="bold">TIMELINE</span>
+            </h1>
+        </div>
+    </header>
 
-<header class="schedule-hero">
+    <div class="schedule-tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'all-sports')">ALL SPORTS</button>
+        <button class="tab-btn" onclick="openTab(event, 'cricket')">CRICKET</button>
+        <button class="tab-btn" onclick="openTab(event, 'football')">FOOTBALL</button>
+        <button class="tab-btn" onclick="openTab(event, 'kabaddi')">KABADDI</button>
+    </div>
 
-<div class="container hero-content">
+    <section class="tab-content-wrapper">
+        
+        <div id="all-sports" class="tab-pane active">
+            <div class="path-container">
+                <div class="path-row">
+                    <div class="path-line"></div>
+                    <div class="node launch"><div class="dot highlight pulse"></div><div class="info"><b>JUNE 06</b><span>OPENING</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUN 07 - JUL 04</b><span>CRICKET</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUN 07 - JUN 27</b><span>FOOTBALL</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUN 28 - JUL 10</b><span>KABADDI</span></div></div>
+                </div>
+                <div class="path-row">
+                    <div class="path-line"></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 05 - JUL 07</b><span>ARCHERY</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 05 - JUL 12</b><span>ATHLETICS</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 08 - JUL 14</b><span>BADMINTON</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 08 - JUL 15</b><span>BASKETBALL</span></div></div>
+                </div>
+                <div class="path-row">
+                    <div class="path-line"></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 12 - JUL 16</b><span>BEACH HANDBALL</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 12 - JUL 17</b><span>BEACH VOLLEYBALL</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 14 - JUL 18</b><span>BOXING</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 14 - JUL 18</b><span>CARROM</span></div></div>
+                </div>
+                <div class="path-row">
+                    <div class="path-line"></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 16 - JUL 20</b><span>CHESS</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 16 - JUL 20</b><span>CYCLING</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 18 - JUL 22</b><span>DIVING</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 18 - JUL 22</b><span>FENCING</span></div></div>
+                </div>
+                <div class="path-row">
+                    <div class="path-line"></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 20 - JUL 24</b><span>HANDBALL</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 20 - JUL 24</b><span>HOCKEY</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 21 - JUL 25</b><span>ICE HOCKEY</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 22 - JUL 25</b><span>JUDO</span></div></div>
+                </div>
+                <div class="path-row">
+                    <div class="path-line"></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 23 - JUL 25</b><span>KARATE / KHO KHO</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 24 - JUL 26</b><span>ROWING / SHOOTING</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 25 - JUL 27</b><span>SKATING / SQUASH</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 26 - JUL 28</b><span>SWIMMING / TT</span></div></div>
+                </div>
+                <div class="path-row finale-row">
+                    <div class="path-line"></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 27 - JUL 29</b><span>TENNIS / TRAMPOLINE</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 28 - JUL 30</b><span>VOLLEYBALL / WL</span></div></div>
+                    <div class="node"><div class="dot"></div><div class="info"><b>JUL 29 - JUL 31</b><span>WRESTLING</span></div></div>
+                    <div class="node launch"><div class="dot highlight pulse"></div><div class="info"><b>JULY 31</b><span>CLOSING</span></div></div>
+                </div>
+            </div>
+        </div>
 
-<span class="eyebrow">ROAD TO GLORY</span>
-
-<h1 class="main-title">
-
-<span class="lite">EVENT</span>
-<span class="bold">TIMELINE</span>
-
-</h1>
-
+        <div id="cricket" class="tab-pane">
+            <div class="match-container">
+                <h2>CRICKET LEAGUE - PUDUCHERRY 2026</h2>
+                <div class="table-scroll"><table><thead><tr><th>Match</th><th>Date</th><th>Day</th><th>Time</th><th>Fixture</th><th>Venue</th></tr></thead><tbody id="cricket-body"></tbody></table></div>
+            </div>
+        </div>
+        <div id="football" class="tab-pane">
+            <div class="match-container">
+                <h2>FOOTBALL LEAGUE - GOA 2026</h2>
+                <div class="table-scroll"><table><thead><tr><th>Match</th><th>Date</th><th>Day</th><th>Time</th><th>Fixture</th><th>Venue</th></tr></thead><tbody id="football-body"></tbody></table></div>
+            </div>
+        </div>
+        <div id="kabaddi" class="tab-pane">
+            <div class="match-container">
+                <h2>KABADDI LEAGUE - GOA 2026</h2>
+                <div class="table-scroll"><table><thead><tr><th>Match</th><th>Date</th><th>Day</th><th>Time</th><th>Fixture</th><th>Venue</th></tr></thead><tbody id="kabaddi-body"></tbody></table></div>
+            </div>
+        </div>
+    </section>
 </div>
 
-</header>
+<script>
+// TEAM MAPPINGS (HARDCODED PER YOUR SPECS)
+const cMap = {
+    'N1':'Jammu & Kashmir', 'N2':'Ladakh', 'N3':'Himachal Pradesh', 'N4':'Uttar Pradesh', 'N5':'Haryana', 'N6':'Delhi', 'N7':'Chandigarh',
+    'S1':'Tamil Nadu', 'S2':'Keralam', 'S3':'Karnataka', 'S4':'Andhra', 'S5':'Telangana', 'S6':'Pondicherry', 'S7':'Lakshadweep',
+    'E1':'West Bengal', 'E2':'Tripura', 'E3':'Mizoram', 'E4':'Nagaland', 'E5':'Sikkim', 'E6':'Andaman & Nicobar', 'E7':'Assam',
+    'W1':'Rajasthan', 'W2':'Gujarat', 'W3':'Maharashtra', 'W4':'Goa', 'W5':'Daman & Diu', 'W6':'Madhya Pradesh', 'W7':'Chhattisgarh', 'W8':'Punjab',
+    'C1':'Jharkhand', 'C2':'Uttarakhand', 'C3':'Arunachal Pradesh', 'C4':'Manipur', 'C5':'Bihar', 'C6':'Odisha', 'C7':'Meghalaya', 'C8':'Punjab'
+};
 
+const sMap = { 
+    'N1':'Jammu & Kashmir', 'N2':'Himachal Pradesh', 'N3':'Uttar Pradesh', 'N4':'Haryana', 'N5':'Delhi', 'N6':'Chhattisgarh',
+    'S1':'Tamil Nadu', 'S2':'Keralam', 'S3':'Karnataka', 'S4':'Andhra', 'S5':'Telangana', 'S6':'Pondicherry',
+    'E1':'West Bengal', 'E2':'Tripura', 'E3':'Mizoram', 'E4':'Nagaland', 'E5':'Bihar', 'E6':'Assam',
+    'W1':'Rajasthan', 'W2':'Gujarat', 'W3':'Maharashtra', 'W4':'Goa', 'W5':'Madhya Pradesh', 'W6':'Punjab',
+    'C1':'Jharkhand', 'C2':'Uttarakhand', 'C3':'Arunachal Pradesh', 'C4':'Manipur', 'C5':'Odisha', 'C6':'Meghalaya'
+};
 
-<section class="timeline-path-section">
+// FULL DATA ARRAYS
+const cRaw = [
+    {m:1, d:"Jun 7", dy:"Sun", t:"6:00 AM", f:"N1 vs N5"}, {m:2, d:"Jun 7", dy:"Sun", t:"12:00 PM", f:"S1 vs S5"}, {m:3, d:"Jun 7", dy:"Sun", t:"6:00 PM", f:"E1 vs E5"},
+    {m:4, d:"Jun 8", dy:"Mon", t:"6:00 AM", f:"W1 vs W5"}, {m:5, d:"Jun 8", dy:"Mon", t:"12:00 PM", f:"C1 vs C5"}, {m:6, d:"Jun 8", dy:"Mon", t:"6:00 PM", f:"N1 vs N6"},
+    {m:7, d:"Jun 9", dy:"Tue", t:"6:00 AM", f:"S1 vs S6"}, {m:8, d:"Jun 9", dy:"Tue", t:"12:00 PM", f:"E1 vs E6"}, {m:9, d:"Jun 9", dy:"Tue", t:"6:00 PM", f:"W1 vs W6"},
+    {m:10, d:"Jun 10", dy:"Wed", t:"6:00 AM", f:"C1 vs C6"}, {m:11, d:"Jun 10", dy:"Wed", t:"12:00 PM", f:"N1 vs N7"}, {m:12, d:"Jun 10", dy:"Wed", t:"6:00 PM", f:"S1 vs S7"},
+    {m:13, d:"Jun 11", dy:"Thu", t:"6:00 AM", f:"E1 vs E7"}, {m:14, d:"Jun 11", dy:"Thu", t:"12:00 PM", f:"W1 vs W7"}, {m:15, d:"Jun 11", dy:"Thu", t:"6:00 PM", f:"C1 vs C7"},
+    {m:16, d:"Jun 12", dy:"Fri", t:"6:00 AM", f:"N2 vs N5"}, {m:17, d:"Jun 12", dy:"Fri", t:"12:00 PM", f:"S2 vs S5"}, {m:18, d:"Jun 12", dy:"Fri", t:"6:00 PM", f:"E2 vs E5"},
+    {m:19, d:"Jun 13", dy:"Sat", t:"6:00 AM", f:"W2 vs W5"}, {m:20, d:"Jun 13", dy:"Sat", t:"12:00 PM", f:"C1 vs C8"}, {m:21, d:"Jun 13", dy:"Sat", t:"6:00 PM", f:"N2 vs N6"},
+    {m:22, d:"Jun 14", dy:"Sun", t:"6:00 AM", f:"S2 vs S6"}, {m:23, d:"Jun 14", dy:"Sun", t:"12:00 PM", f:"E2 vs E6"}, {m:24, d:"Jun 14", dy:"Sun", t:"6:00 PM", f:"W2 vs W6"},
+    {m:25, d:"Jun 15", dy:"Mon", t:"6:00 AM", f:"C2 vs C5"}, {m:26, d:"Jun 15", dy:"Mon", t:"12:00 PM", f:"N2 vs N7"}, {m:27, d:"Jun 15", dy:"Mon", t:"6:00 PM", f:"S2 vs S7"},
+    {m:28, d:"Jun 16", dy:"Tue", t:"6:00 AM", f:"E2 vs E7"}, {m:29, d:"Jun 16", dy:"Tue", t:"12:00 PM", f:"W2 vs W7"}, {m:30, d:"Jun 16", dy:"Tue", t:"6:00 PM", f:"C2 vs C6"},
+    {m:31, d:"Jun 17", dy:"Wed", t:"6:00 AM", f:"N3 vs N5"}, {m:32, d:"Jun 17", dy:"Wed", t:"12:00 PM", f:"S3 vs S5"}, {m:33, d:"Jun 17", dy:"Wed", t:"6:00 PM", f:"E3 vs E5"},
+    {m:34, d:"Jun 18", dy:"Thu", t:"6:00 AM", f:"W3 vs W5"}, {m:35, d:"Jun 18", dy:"Thu", t:"12:00 PM", f:"C2 vs C7"}, {m:36, d:"Jun 18", dy:"Thu", t:"6:00 PM", f:"N3 vs N6"},
+    {m:37, d:"Jun 19", dy:"Fri", t:"6:00 AM", f:"S3 vs S6"}, {m:38, d:"Jun 19", dy:"Fri", t:"12:00 PM", f:"E3 vs E6"}, {m:39, d:"Jun 19", dy:"Fri", t:"6:00 PM", f:"W3 vs W6"},
+    {m:40, d:"Jun 20", dy:"Sat", t:"6:00 AM", f:"C2 vs C8"}, {m:41, d:"Jun 20", dy:"Sat", t:"12:00 PM", f:"N3 vs N7"}, {m:42, d:"Jun 20", dy:"Sat", t:"6:00 PM", f:"S3 vs S7"},
+    {m:43, d:"Jun 21", dy:"Sun", t:"6:00 AM", f:"E3 vs E7"}, {m:44, d:"Jun 21", dy:"Sun", t:"12:00 PM", f:"W3 vs W7"}, {m:45, d:"Jun 21", dy:"Sun", t:"6:00 PM", f:"C3 vs C5"},
+    {m:46, d:"Jun 22", dy:"Mon", t:"6:00 AM", f:"N4 vs N5"}, {m:47, d:"Jun 22", dy:"Mon", t:"12:00 PM", f:"S4 vs S5"}, {m:48, d:"Jun 22", dy:"Mon", t:"6:00 PM", f:"E4 vs E5"},
+    {m:49, d:"Jun 23", dy:"Tue", t:"6:00 AM", f:"W4 vs W5"}, {m:50, d:"Jun 23", dy:"Tue", t:"12:00 PM", f:"C3 vs C6"}, {m:51, d:"Jun 23", dy:"Tue", t:"6:00 PM", f:"N4 vs N6"},
+    {m:52, d:"Jun 24", dy:"Wed", t:"6:00 AM", f:"S4 vs S6"}, {m:53, d:"Jun 24", dy:"Wed", t:"12:00 PM", f:"E4 vs E6"}, {m:54, d:"Jun 24", dy:"Wed", t:"6:00 PM", f:"W4 vs W6"},
+    {m:55, d:"Jun 25", dy:"Thu", t:"6:00 AM", f:"C3 vs C7"}, {m:56, d:"Jun 25", dy:"Thu", t:"12:00 PM", f:"N4 vs N7"}, {m:57, d:"Jun 25", dy:"Thu", t:"6:00 PM", f:"S4 vs S7"},
+    {m:58, d:"Jun 26", dy:"Fri", t:"6:00 AM", f:"E4 vs E7"}, {m:59, d:"Jun 26", dy:"Fri", t:"12:00 PM", f:"W4 vs W7"}, {m:60, d:"Jun 26", dy:"Fri", t:"6:00 PM", f:"C3 vs C8"},
+    {m:61, d:"Jun 27", dy:"Sat", t:"6:00 AM", f:"C4 vs C5"}, {m:62, d:"Jun 27", dy:"Sat", t:"12:00 PM", f:"C4 vs C6"}, {m:63, d:"Jun 27", dy:"Sat", t:"6:00 PM", f:"C4 vs C7"},
+    {m:64, d:"Jun 28", dy:"Sun", t:"6:00 AM", f:"C4 vs C8"}
+];
 
-<div class="path-container">
+const fRaw = [
+    {m:1, d:"Jun 7", dy:"Sun", t:"9:00 AM", f:"N1 vs N4"}, {m:2, d:"Jun 7", dy:"Sun", t:"3:00 PM", f:"S1 vs S4"}, {m:3, d:"Jun 7", dy:"Sun", t:"9:00 PM", f:"E1 vs E4"},
+    {m:4, d:"Jun 8", dy:"Mon", t:"9:00 AM", f:"W1 vs W4"}, {m:5, d:"Jun 8", dy:"Mon", t:"3:00 PM", f:"C1 vs C4"}, {m:6, d:"Jun 8", dy:"Mon", t:"9:00 PM", f:"N1 vs N5"},
+    {m:7, d:"Jun 9", dy:"Tue", t:"9:00 AM", f:"S1 vs S5"}, {m:8, d:"Jun 9", dy:"Tue", t:"3:00 PM", f:"E1 vs E5"}, {m:9, d:"Jun 9", dy:"Tue", t:"9:00 PM", f:"W1 vs W5"},
+    {m:10, d:"Jun 10", dy:"Wed", t:"9:00 AM", f:"C1 vs C5"}, {m:11, d:"Jun 10", dy:"Wed", t:"3:00 PM", f:"N1 vs N6"}, {m:12, d:"Jun 10", dy:"Wed", t:"9:00 PM", f:"S1 vs S6"},
+    {m:13, d:"Jun 11", dy:"Thu", t:"9:00 AM", f:"E1 vs E6"}, {m:14, d:"Jun 11", dy:"Thu", t:"3:00 PM", f:"W1 vs W6"}, {m:15, d:"Jun 11", dy:"Thu", t:"9:00 PM", f:"C1 vs C6"},
+    {m:16, d:"Jun 12", dy:"Fri", t:"9:00 AM", f:"N2 vs N4"}, {m:17, d:"Jun 12", dy:"Fri", t:"3:00 PM", f:"S2 vs S4"}, {m:18, d:"Jun 12", dy:"Fri", t:"9:00 PM", f:"E2 vs E4"},
+    {m:19, d:"Jun 13", dy:"Sat", t:"9:00 AM", f:"W2 vs W4"}, {m:20, d:"Jun 13", dy:"Sat", t:"3:00 PM", f:"C2 vs C4"}, {m:21, d:"Jun 13", dy:"Sat", t:"9:00 PM", f:"N2 vs N5"},
+    {m:22, d:"Jun 14", dy:"Sun", t:"9:00 AM", f:"S2 vs S5"}, {m:23, d:"Jun 14", dy:"Sun", t:"3:00 PM", f:"E2 vs E5"}, {m:24, d:"Jun 14", dy:"Sun", t:"9:00 PM", f:"W2 vs W5"},
+    {m:25, d:"Jun 15", dy:"Mon", t:"9:00 AM", f:"C2 vs C5"}, {m:26, d:"Jun 15", dy:"Mon", t:"3:00 PM", f:"N2 vs N6"}, {m:27, d:"Jun 15", dy:"Mon", t:"9:00 PM", f:"S2 vs S6"},
+    {m:28, d:"Jun 16", dy:"Tue", t:"9:00 AM", f:"E2 vs E6"}, {m:29, d:"Jun 16", dy:"Tue", t:"3:00 PM", f:"W2 vs W6"}, {m:30, d:"Jun 16", dy:"Tue", t:"9:00 PM", f:"C2 vs C6"},
+    {m:31, d:"Jun 17", dy:"Wed", t:"9:00 AM", f:"N3 vs N4"}, {m:32, d:"Jun 17", dy:"Wed", t:"3:00 PM", f:"S3 vs S4"}, {m:33, d:"Jun 17", dy:"Wed", t:"9:00 PM", f:"E3 vs E4"},
+    {m:34, d:"Jun 18", dy:"Thu", t:"9:00 AM", f:"W3 vs W4"}, {m:35, d:"Jun 18", dy:"Thu", t:"3:00 PM", f:"C3 vs C4"}, {m:36, d:"Jun 18", dy:"Thu", t:"9:00 PM", f:"N3 vs N5"},
+    {m:37, d:"Jun 19", dy:"Fri", t:"9:00 AM", f:"S3 vs S5"}, {m:38, d:"Jun 19", dy:"Fri", t:"3:00 PM", f:"E3 vs E5"}, {m:39, d:"Jun 19", dy:"Fri", t:"9:00 PM", f:"W3 vs W5"},
+    {m:40, d:"Jun 20", dy:"Sat", t:"9:00 AM", f:"C3 vs C5"}, {m:41, d:"Jun 20", dy:"Sat", t:"3:00 PM", f:"N3 vs N6"}, {m:42, d:"Jun 20", dy:"Sat", t:"9:00 PM", f:"S3 vs S6"},
+    {m:43, d:"Jun 21", dy:"Sun", t:"9:00 AM", f:"E3 vs E6"}, {m:44, d:"Jun 21", dy:"Sun", t:"3:00 PM", f:"W3 vs W6"}, {m:45, d:"Jun 21", dy:"Sun", t:"9:00 PM", f:"C3 vs C6"}
+];
 
+const kRaw = [
+    {m:1, d:"Jun 28", dy:"Sun", t:"6:00 AM", f:"N1 vs N4"}, {m:2, d:"Jun 28", dy:"Sun", t:"9:00 AM", f:"S1 vs S4"}, {m:3, d:"Jun 28", dy:"Sun", t:"12:00 PM", f:"E1 vs E4"}, {m:4, d:"Jun 28", dy:"Sun", t:"3:00 PM", f:"W1 vs W4"},
+    {m:5, d:"Jun 29", dy:"Mon", t:"6:00 AM", f:"C1 vs C4"}, {m:6, d:"Jun 29", dy:"Mon", t:"9:00 AM", f:"N1 vs N5"}, {m:7, d:"Jun 29", dy:"Mon", t:"12:00 PM", f:"S1 vs S5"}, {m:8, d:"Jun 29", dy:"Mon", t:"3:00 PM", f:"E1 vs E5"},
+    {m:9, d:"Jun 30", dy:"Tue", t:"6:00 AM", f:"W1 vs W5"}, {m:10, d:"Jun 30", dy:"Tue", t:"9:00 AM", f:"C1 vs C5"}, {m:11, d:"Jun 30", dy:"Tue", t:"12:00 PM", f:"N1 vs N6"}, {m:12, d:"Jun 30", dy:"Tue", t:"3:00 PM", f:"S1 vs S6"},
+    {m:13, d:"Jul 1", dy:"Wed", t:"6:00 AM", f:"E1 vs E6"}, {m:14, d:"Jul 1", dy:"Wed", t:"9:00 AM", f:"W1 vs W6"}, {m:15, d:"Jul 1", dy:"Wed", t:"12:00 PM", f:"C1 vs C6"}, {m:16, d:"Jul 1", dy:"Wed", t:"3:00 PM", f:"N2 vs N4"},
+    {m:17, d:"Jul 2", dy:"Thu", t:"6:00 AM", f:"S2 vs S4"}, {m:18, d:"Jul 2", dy:"Thu", t:"9:00 AM", f:"E2 vs E4"}, {m:19, d:"Jul 2", dy:"Thu", t:"12:00 PM", f:"W2 vs W4"}, {m:20, d:"Jul 2", dy:"Thu", t:"3:00 PM", f:"C2 vs C4"},
+    {m:21, d:"Jul 3", dy:"Fri", t:"6:00 AM", f:"N2 vs N5"}, {m:22, d:"Jul 3", dy:"Fri", t:"9:00 AM", f:"S2 vs S5"}, {m:23, d:"Jul 3", dy:"Fri", t:"12:00 PM", f:"E2 vs E5"}, {m:24, d:"Jul 3", dy:"Fri", t:"3:00 PM", f:"W2 vs W5"},
+    {m:25, d:"Jul 4", dy:"Sat", t:"6:00 AM", f:"C2 vs C5"}, {m:26, d:"Jul 4", dy:"Sat", t:"9:00 AM", f:"N2 vs N6"}, {m:27, d:"Jul 4", dy:"Sat", t:"12:00 PM", f:"S2 vs S6"}, {m:28, d:"Jul 4", dy:"Sat", t:"3:00 PM", f:"E2 vs E6"},
+    {m:29, d:"Jul 5", dy:"Sun", t:"6:00 AM", f:"W2 vs W6"}, {m:30, d:"Jul 5", dy:"Sun", t:"9:00 AM", f:"C2 vs C6"}, {m:31, d:"Jul 5", dy:"Sun", t:"12:00 PM", f:"N3 vs N4"}, {m:32, d:"Jul 5", dy:"Sun", t:"3:00 PM", f:"S3 vs S4"},
+    {m:33, d:"Jul 5", dy:"Sun", t:"6:00 PM", f:"E3 vs E4"}, {m:34, d:"Jul 5", dy:"Sun", t:"9:00 PM", f:"W3 vs W4"}, {m:35, d:"Jul 6", dy:"Mon", t:"6:00 AM", f:"C3 vs C4"}, {m:36, d:"Jul 6", dy:"Mon", t:"9:00 AM", f:"N3 vs N5"},
+    {m:37, d:"Jul 6", dy:"Mon", t:"12:00 PM", f:"S3 vs S5"}, {m:38, d:"Jul 6", dy:"Mon", t:"3:00 PM", f:"E3 vs E5"}, {m:39, d:"Jul 6", dy:"Mon", t:"6:00 PM", f:"W3 vs W5"}, {m:40, d:"Jul 6", dy:"Mon", t:"9:00 PM", f:"C3 vs C5"},
+    {m:41, d:"Jul 7", dy:"Tue", t:"6:00 AM", f:"N3 vs N6"}, {m:42, d:"Jul 7", dy:"Tue", t:"9:00 AM", f:"S3 vs S6"}, {m:43, d:"Jul 7", dy:"Tue", t:"12:00 PM", f:"E3 vs E6"}, {m:44, d:"Jul 7", dy:"Tue", t:"3:00 PM", f:"W3 vs W6"},
+    {m:45, d:"Jul 7", dy:"Tue", t:"6:00 PM", f:"C3 vs C6"}
+];
 
-<!-- ROW 1 -->
+// KNOCKOUT DATA
+const cKnock = [
+    {m:"QF 1", d:"Jun 29", dy:"Mon", t:"6:00 PM", f:"QUARTER FINALS"}, {m:"QF 2", d:"Jun 30", dy:"Tue", t:"6:00 PM", f:"QUARTER FINALS"}, {m:"QF 3", d:"Jul 1", dy:"Wed", t:"6:00 PM", f:"QUARTER FINALS"},
+    {m:"SF 1", d:"Jul 2", dy:"Thu", t:"6:00 PM", f:"SEMI FINAL 1"}, {m:"SF 2", d:"Jul 3", dy:"Fri", t:"6:00 PM", f:"SEMI FINAL 2"}, {m:"FINAL", d:"Jul 4", dy:"Sat", t:"6:00 PM", f:"GRAND FINALE", isFinal:true}
+];
 
-<div class="path-row">
+const fKnock = [
+    {m:"QF 1", d:"Jun 22", dy:"Mon", t:"9:00 PM", f:"QUARTER FINALS"}, {m:"QF 2", d:"Jun 23", dy:"Tue", t:"9:00 PM", f:"QUARTER FINALS"}, {m:"QF 3", d:"Jun 24", dy:"Wed", t:"9:00 PM", f:"QUARTER FINALS"},
+    {m:"SF 1", d:"Jun 25", dy:"Thu", t:"9:00 PM", f:"SEMI FINALS"}, {m:"SF 2", d:"Jun 26", dy:"Fri", t:"9:00 PM", f:"SEMI FINALS"}, {m:"FINAL", d:"Jun 27", dy:"Sat", t:"9:00 PM", f:"GRAND FINALE", isFinal:true}
+];
 
-<div class="path-line"></div>
+const kKnock = [
+    {m:"QF1", d:"Jul 8", dy:"Wed", t:"6:00 AM", f:"QUARTER FINALS"}, 
+    {m:"QF2", d:"Jul 8", dy:"Wed", t:"12:00 PM", f:"QUARTER FINALS"},
+    {m:"QF3", d:"Jul 8", dy:"Wed", t:"6:00 PM", f:"QUARTER FINALS"}, 
+    {m:"SF1", d:"Jul 9", dy:"Thu", t:"12:00 PM", f:"SEMI FINALS"}, 
+    {m:"SF2", d:"Jul 9", dy:"Thu", t:"6:00 PM", f:"SEMI FINALS"},
+    {m:"FINAL", d:"Jul 10", dy:"Sat", t:"6:00 PM", f:"GRAND FINALE", isFinal:true}
+];
 
-<div class="node launch" aria-label="Opening Ceremony">
-<div class="dot highlight pulse"></div>
-<div class="info">
-<b>JUNE 06</b>
-<span>OPENING CEREMONY</span>
-</div>
-</div>
+// RENDER FUNCTION
+function buildTable(bodyId, leagueData, knockData, map, venue) {
+    let rows = leagueData.map(match => {
+        let teams = match.f.split(' vs ');
+        let fName = `${map[teams[0]]} vs ${map[teams[1]]}`;
+        return `<tr><td>${match.m}</td><td>${match.d}, 2026</td><td>${match.dy}</td><td>${match.t}</td><td>${fName}</td><td>${venue}</td></tr>`;
+    });
+    
+    let kRows = knockData.map(k => {
+        let cls = k.isFinal ? 'final-row' : 'knockout';
+        return `<tr class="${cls}"><td>${k.m}</td><td>${k.d}, 2026</td><td>${k.dy}</td><td>${k.t}</td><td>${k.f}</td><td>${venue}</td></tr>`;
+    });
+    
+    document.getElementById(bodyId).innerHTML = rows.join('') + kRows.join('');
+}
 
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUN 07 - JUL 04</b>
-<span>CRICKET</span>
-</div>
-</div>
+window.onload = () => {
+    buildTable('cricket-body', cRaw, cKnock, cMap, "Puducherry Cricket Stadium");
+    buildTable('football-body', fRaw, fKnock, sMap, "Pt. J.N. Stadium, Goa");
+    buildTable('kabaddi-body', kRaw, kKnock, sMap, "Dr. S.P.M Indoor Stadium, Goa");
+};
 
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUN 07 - JUN 27</b>
-<span>FOOTBALL</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUN 28 - JUL 11</b>
-<span>KABADDI</span>
-</div>
-</div>
-
-</div>
-
-
-<!-- ROW 2 -->
-
-<div class="path-row">
-
-<div class="path-line"></div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 05 - JUL 07</b>
-<span>ARCHERY</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 05 - JUL 12</b>
-<span>ATHLETICS</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 08 - JUL 14</b>
-<span>BADMINTON</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 08 - JUL 15</b>
-<span>BASKETBALL</span>
-</div>
-</div>
-
-</div>
-
-
-<!-- ROW 3 -->
-
-<div class="path-row">
-
-<div class="path-line"></div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 12 - JUL 16</b>
-<span>BEACH HANDBALL</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 12 - JUL 17</b>
-<span>BEACH VOLLEYBALL</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 14 - JUL 18</b>
-<span>BOXING</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 14 - JUL 18</b>
-<span>CARROM</span>
-</div>
-</div>
-
-</div>
-
-
-<!-- ROW 4 -->
-
-<div class="path-row">
-
-<div class="path-line"></div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 16 - JUL 20</b>
-<span>CHESS</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 16 - JUL 20</b>
-<span>CYCLING</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 18 - JUL 22</b>
-<span>DIVING</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 18 - JUL 22</b>
-<span>FENCING</span>
-</div>
-</div>
-
-</div>
-
-
-<!-- ROW 5 -->
-
-<div class="path-row">
-
-<div class="path-line"></div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 20 - JUL 24</b>
-<span>HANDBALL</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 20 - JUL 24</b>
-<span>HOCKEY</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 21 - JUL 25</b>
-<span>ICE HOCKEY</span>
-</div>
-</div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 22 - JUL 25</b>
-<span>JUDO</span>
-</div>
-</div>
-
-</div>
-
-
-<!-- FINAL ROW -->
-
-<div class="path-row finale-row">
-
-<div class="path-line"></div>
-
-<div class="node">
-<div class="dot"></div>
-<div class="info">
-<b>JUL 27 - JUL 28</b>
-<span>WRESTLING</span>
-</div>
-</div>
-
-<div class="node launch" aria-label="Closing Ceremony">
-<div class="dot highlight pulse"></div>
-<div class="info">
-<b>JULY 31</b>
-<span>CLOSING CEREMONY</span>
-</div>
-</div>
-
-<div class="empty"></div>
-<div class="empty"></div>
-
-</div>
-
-
-</div>
-
-</section>
-
-</div>
-
+function openTab(evt, name) {
+    let p = document.getElementsByClassName("tab-pane"), b = document.getElementsByClassName("tab-btn");
+    for(let i=0; i<p.length; i++){ p[i].style.display = "none"; b[i].classList.remove("active"); }
+    document.getElementById(name).style.display = "block"; evt.currentTarget.classList.add("active");
+}
+</script>
 {% endblock %}
