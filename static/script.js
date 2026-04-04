@@ -89,38 +89,47 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!sportNameEl) return;
 
     const sportsData = [
-        { name: "Archery", start: "JUL 05", end: "JUL 07", icon: "fa-bullseye" },
-        { name: "Athletics", start: "JUL 05", end: "JUL 12", icon: "fa-person-running" },
-        { name: "Badminton", start: "JUL 08", end: "JUL 14", icon: "fa-table-tennis-paddle-ball" },
-        { name: "Basketball", start: "JUL 08", end: "JUL 15", icon: "fa-basketball" },
-        { name: "Beach Handball", start: "JUL 12", end: "JUL 16", icon: "fa-volleyball" },
-        { name: "Beach Volleyball", start: "JUL 12", end: "JUL 17", icon: "fa-umbrella-beach" },
-        { name: "Boxing", start: "JUL 14", end: "JUL 18", icon: "fa-hand-fist" },
-        { name: "Carrom", start: "JUL 14", end: "JUL 18", icon: "fa-square" },
-        { name: "Chess", start: "JUL 16", end: "JUL 20", icon: "fa-chess" },
+        { name: "Archery", start: "MAY 30", end: "JUN 02", icon: "fa-bullseye" },
+        { name: "Athletics", start: "MAY 01", end: "MAY 10", icon: "fa-person-running" },
+        { name: "Badminton", start: "MAY 09", end: "MAY 15", icon: "fa-table-tennis-paddle-ball" },
+        { name: "Basketball", start: "MAY 09", end: "MAY 16", icon: "fa-basketball" },
+        { name: "Beach Handball", start: "MAY 26", end: "MAY 29", icon: "fa-volleyball" },
+        { name: "Beach Volleyball", start: "MAY 23", end: "MAY 27", icon: "fa-umbrella-beach" },
+        { name: "Boxing", start: "MAY 16", end: "MAY 20", icon: "fa-hand-fist" },
+        { name: "Carrom", start: "JUN 02", end: "JUN 05", icon: "fa-square" },
+        { name: "Chess", start: "JUN 02", end: "JUN 05", icon: "fa-chess" },
+
+        // ✅ KEEP SAME
         { name: "Cricket", start: "JUN 07", end: "JUL 04", icon: "fa-cricket-bat-ball" },
-        { name: "Cycling", start: "JUL 16", end: "JUL 20", icon: "fa-bicycle" },
-        { name: "Diving", start: "JUL 18", end: "JUL 22", icon: "fa-water" },
-        { name: "Fencing", start: "JUL 18", end: "JUL 22", icon: "fa-fencing-fights" },
+
+        { name: "Cycling", start: "MAY 21", end: "MAY 26", icon: "fa-bicycle" },
+        { name: "Diving", start: "MAY 31", end: "JUN 03", icon: "fa-water" },
+        { name: "Fencing", start: "MAY 30", end: "JUN 02", icon: "fa-fencing-fights" },
+
+        // ✅ KEEP SAME
         { name: "Football", start: "JUN 07", end: "JUN 27", icon: "fa-soccer-ball" },
-        { name: "Handball", start: "JUL 20", end: "JUL 24", icon: "fa-circle-dot" },
-        { name: "Hockey", start: "JUL 20", end: "JUL 24", icon: "fa-hockey-puck" },
-        { name: "Ice Hockey", start: "JUL 21", end: "JUL 25", icon: "fa-icicles" },
-        { name: "Judo", start: "JUL 22", end: "JUL 25", icon: "fa-user-ninja" },
+
+        { name: "Handball", start: "MAY 23", end: "MAY 27", icon: "fa-circle-dot" },
+        { name: "Hockey", start: "MAY 11", end: "MAY 18", icon: "fa-hockey-puck" },
+        { name: "Ice Hockey", start: "JUN 04", end: "JUN 06", icon: "fa-icicles" },
+        { name: "Judo", start: "MAY 28", end: "MAY 31", icon: "fa-user-ninja" },
+
+        // ✅ KEEP SAME
         { name: "Kabaddi", start: "JUN 28", end: "JUL 10", icon: "fa-users-rays" },
-        { name: "Karate", start: "JUL 22", end: "JUL 26", icon: "fa-hand-back-fist" },
-        { name: "Kho Kho", start: "JUL 23", end: "JUL 26", icon: "fa-arrows-left-right" },
-        { name: "Rowing", start: "JUL 23", end: "JUL 27", icon: "fa-ship" },
-        { name: "Shooting", start: "JUL 24", end: "JUL 27", icon: "fa-crosshairs" },
-        { name: "Speed Skating", start: "JUL 24", end: "JUL 27", icon: "fa-bolt" },
-        { name: "Squash", start: "JUL 25", end: "JUL 28", icon: "fa-baseball-bat-ball" },
-        { name: "Swimming", start: "JUL 25", end: "JUL 28", icon: "fa-person-swimming" },
-        { name: "Table Tennis", start: "JUL 26", end: "JUL 28", icon: "fa-table-tennis-paddle-ball" },
-        { name: "Tennis", start: "JUL 26", end: "JUL 28", icon: "fa-baseball" },
-        { name: "Trampoline", start: "JUL 27", end: "JUL 28", icon: "fa-up-down" },
-        { name: "Volleyball", start: "JUL 27", end: "JUL 28", icon: "fa-volleyball" },
-        { name: "Weightlifting", start: "JUL 27", end: "JUL 28", icon: "fa-weight-hanging" },
-        { name: "Wrestling", start: "JUL 27", end: "JUL 28", icon: "fa-child-reaching" }
+
+        { name: "Karate", start: "MAY 28", end: "MAY 31", icon: "fa-hand-back-fist" },
+        { name: "Kho Kho", start: "MAY 26", end: "MAY 29", icon: "fa-arrows-left-right" },
+        { name: "Rowing", start: "MAY 31", end: "JUN 03", icon: "fa-ship" },
+        { name: "Shooting", start: "MAY 21", end: "MAY 25", icon: "fa-crosshairs" },
+        { name: "Speed Skating", start: "JUN 01", end: "JUN 04", icon: "fa-bolt" },
+        { name: "Squash", start: "JUN 01", end: "JUN 04", icon: "fa-baseball-bat-ball" },
+        { name: "Swimming", start: "MAY 01", end: "MAY 08", icon: "fa-person-swimming" },
+        { name: "Table Tennis", start: "MAY 18", end: "MAY 22", icon: "fa-table-tennis-paddle-ball" },
+        { name: "Tennis", start: "MAY 18", end: "MAY 23", icon: "fa-baseball" },
+        { name: "Trampoline", start: "JUN 03", end: "JUN 06", icon: "fa-up-down" },
+        { name: "Volleyball", start: "MAY 11", end: "MAY 17", icon: "fa-volleyball" },
+        { name: "Weightlifting", start: "JUN 03", end: "JUN 06", icon: "fa-weight-hanging" },
+        { name: "Wrestling", start: "MAY 16", end: "MAY 20", icon: "fa-child-reaching" }
     ];
 
     let currentIndex = 0;
