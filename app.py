@@ -11,6 +11,11 @@ app.secret_key = "il4_secret_key"
 DATABASE = "players.db"
 
 
+@app.route("/points")
+def points():
+    return render_template("points.html")
+
+
 # -----------------------------
 # DATABASE
 # -----------------------------

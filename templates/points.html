@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+<section class="admin-section">
+    <div class="admin-container">
+        <h1>Points Table</h1>
+
+        <table border="1" id="pointsTable">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Matches</th>
+                    <th>Wins</th>
+                    <th>Loss</th>
+                    <th>Points</th>
+                    <th>NRR</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+let teams = JSON.parse(localStorage.getItem("teams")) || {};
+
+function renderPointsTable() {
+    let tbody = document.querySelector("#pointsTable tbody");
+    tbody.innerHTML = "";
+
+    let sortedTeams = Object.entries(teams)
+        .sort((a, b) => b[1].points - a[1].points || b[1].nrr - a[1].nrr);
+
+    sortedTeams.forEach(([name, data]) => {
+        tbody.innerHTML += `
+        <tr>
+            <td data-label="Team">${name}</td>
+            <td data-label="Matches">${data.matches}</td>
+            <td data-label="Wins">${data.wins}</td>
+            <td data-label="Loss">${data.loss}</td>
+            <td data-label="Points">${data.points}</td>
+            <td data-label="NRR">${data.nrr.toFixed(2)}</td>
+        </tr>`;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", renderPointsTable);
+</script>
+
+{% endblock %}

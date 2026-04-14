@@ -14,6 +14,58 @@
             </div>
         </div>
 
+        <div class="tab">
+  <button onclick="openTab('nrrTab')">NRR Calculator</button>
+  <button onclick="openTab('playersTab')">Players Info</button>
+</div>
+
+<!-- NRR TAB -->
+<div id="nrrTab" class="tab-content">
+
+  <div class="nrr-box">
+    <h2>NRR Calculator</h2>
+
+    <div class="team-box">
+      <h3>Team A</h3>
+      <input type="text" id="teamA" placeholder="Team Name">
+      <input type="number" id="runsA" placeholder="Runs">
+      <input type="number" id="oversA" placeholder="Overs (max 10)">
+      <input type="number" id="wicketsA" placeholder="Wickets">
+    </div>
+
+    <div class="team-box">
+      <h3>Team B</h3>
+      <input type="text" id="teamB" placeholder="Team Name">
+      <input type="number" id="runsB" placeholder="Runs">
+      <input type="number" id="oversB" placeholder="Overs (max 10)">
+      <input type="number" id="wicketsB" placeholder="Wickets">
+    </div>
+
+    <button class="calculate-btn" onclick="calculateMatch()">Calculate & Save</button>
+
+    <h3 id="result"></h3>
+  </div>
+
+  <!-- MATCH HISTORY -->
+  <div class="history-box">
+    <h2>Match History</h2>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Match</th>
+          <th>Result</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- PLAYERS TAB -->
+<div id="playersTab" class="tab-content">
+
         <div class="filter-bar">
             <div class="filter-group">
                 <label>State / UT:</label>
@@ -128,6 +180,9 @@
 </section>
 
 <script>
+/* =========================
+   PLAYERS TABLE (EXISTING)
+========================= */
 let allPlayers = [];
 
 async function loadPlayers() {
@@ -135,9 +190,10 @@ async function loadPlayers() {
         const res = await fetch("/get_players");
         const data = await res.json();
         allPlayers = data.players || [];
-        renderTable(allPlayers);
+        renderPlayersTable(allPlayers);
     } catch (err) {
-        document.getElementById("playersTable").innerHTML = `<tr><td colspan="5">Server Error</td></tr>`;
+        document.getElementById("playersTable").innerHTML =
+            `<tr><td colspan="5">Server Error</td></tr>`;
     }
 }
 
@@ -146,14 +202,14 @@ function applyFilters() {
     const sport = document.getElementById("sportFilter").value;
 
     const filtered = allPlayers.filter(p => {
-        return (state === "all" || p.state === state) && 
+        return (state === "all" || p.state === state) &&
                (sport === "all" || p.sport === sport);
     });
 
-    renderTable(filtered);
+    renderPlayersTable(filtered);
 }
 
-function renderTable(data) {
+function renderPlayersTable(data) {
     const tableBody = document.getElementById("playersTable");
     document.getElementById("playerCount").innerText = data.length;
 
@@ -164,16 +220,18 @@ function renderTable(data) {
 
     tableBody.innerHTML = data.map(p => `
         <tr>
-            <td data-label="ID">${p.id}</td>
-            <td data-label="Name">${p.name}</td>
-            <td data-label="Phone">${p.phone}</td>
-            <td data-label="State">${p.state}</td>
-            <td data-label="Sport">${p.sport}</td>
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.phone}</td>
+            <td>${p.state}</td>
+            <td>${p.sport}</td>
         </tr>
     `).join('');
 }
 
-// EXCEL DOWNLOAD FUNCTION
+/* =========================
+   EXCEL EXPORT
+========================= */
 function downloadExcel() {
     const table = document.getElementById("exportTable");
     const wb = XLSX.utils.table_to_book(table, { sheet: "Participants" });
@@ -181,6 +239,166 @@ function downloadExcel() {
     XLSX.writeFile(wb, `IL4_Participants_${date}.xlsx`);
 }
 
-document.addEventListener("DOMContentLoaded", loadPlayers);
+/* =========================
+   TABS SYSTEM
+========================= */
+function openTab(tabId) {
+    document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.style.display = "none";
+    });
+    document.getElementById(tabId).style.display = "block";
+}
+
+/* =========================
+   MATCH STORAGE
+========================= */
+let teams = JSON.parse(localStorage.getItem("teams")) || {};
+let matches = JSON.parse(localStorage.getItem("matches")) || [];
+
+/* =========================
+   HELPERS
+========================= */
+function getValidOvers(overs, wickets) {
+    return wickets === 10 ? 10 : overs;
+}
+
+/* =========================
+   UPDATE TEAM
+========================= */
+function updateTeam(name, runsScored, oversFaced, runsAgainst, oversBowled) {
+    if (!teams[name]) {
+        teams[name] = {
+            matches: 0, wins: 0, loss: 0, points: 0,
+            runsScored: 0, oversFaced: 0,
+            runsAgainst: 0, oversBowled: 0, nrr: 0
+        };
+    }
+
+    let t = teams[name];
+
+    t.matches++;
+    t.runsScored += runsScored;
+    t.oversFaced += oversFaced;
+    t.runsAgainst += runsAgainst;
+    t.oversBowled += oversBowled;
+
+    t.nrr = (t.runsScored / t.oversFaced) -
+            (t.runsAgainst / t.oversBowled);
+}
+
+/* =========================
+   CALCULATE MATCH
+========================= */
+function calculateMatch() {
+    let teamA = document.getElementById("teamA").value.trim();
+    let teamB = document.getElementById("teamB").value.trim();
+
+    let runsA = +document.getElementById("runsA").value;
+    let oversA = +document.getElementById("oversA").value;
+    let wicketsA = +document.getElementById("wicketsA").value;
+
+    let runsB = +document.getElementById("runsB").value;
+    let oversB = +document.getElementById("oversB").value;
+    let wicketsB = +document.getElementById("wicketsB").value;
+
+    if (!teamA || !teamB) {
+        alert("Enter team names");
+        return;
+    }
+
+    oversA = getValidOvers(oversA, wicketsA);
+    oversB = getValidOvers(oversB, wicketsB);
+
+    let nrrA = (runsA / oversA) - (runsB / oversB);
+    let nrrB = -nrrA;
+
+    updateTeam(teamA, runsA, oversA, runsB, oversB);
+    updateTeam(teamB, runsB, oversB, runsA, oversA);
+
+    let winner = "Draw";
+
+    if (runsA > runsB) {
+        teams[teamA].wins++; teams[teamA].points += 2;
+        teams[teamB].loss++;
+        winner = teamA;
+    } else if (runsB > runsA) {
+        teams[teamB].wins++; teams[teamB].points += 2;
+        teams[teamA].loss++;
+        winner = teamB;
+    }
+
+    // SAVE MATCH
+    matches.push({
+        teamA, teamB,
+        runsA, runsB,
+        winner
+    });
+
+    localStorage.setItem("teams", JSON.stringify(teams));
+    localStorage.setItem("matches", JSON.stringify(matches));
+
+    document.getElementById("result").innerText =
+        `${teamA} NRR: ${nrrA.toFixed(2)} | ${teamB} NRR: ${nrrB.toFixed(2)}`;
+
+    renderHistory();
+}
+
+/* =========================
+   HISTORY TABLE
+========================= */
+function renderHistory() {
+    let tbody = document.querySelector("#historyTable tbody");
+    tbody.innerHTML = "";
+
+    matches.forEach((m, i) => {
+        tbody.innerHTML += `
+        <tr>
+            <td>${m.teamA} vs ${m.teamB}</td>
+            <td>${m.winner}</td>
+            <td>
+                <button onclick="deleteMatch(${i})" class="delete-btn">Delete</button>
+            </td>
+        </tr>`;
+    });
+}
+
+/* =========================
+   DELETE MATCH
+========================= */
+function deleteMatch(index) {
+    matches.splice(index, 1);
+
+    // RESET everything
+    localStorage.removeItem("teams");
+    teams = {};
+
+    // Recalculate from remaining matches
+    matches.forEach(m => {
+        updateTeam(m.teamA, m.runsA, 10, m.runsB, 10);
+        updateTeam(m.teamB, m.runsB, 10, m.runsA, 10);
+
+        if (m.winner === m.teamA) {
+            teams[m.teamA].wins++; teams[m.teamA].points += 2;
+            teams[m.teamB].loss++;
+        } else if (m.winner === m.teamB) {
+            teams[m.teamB].wins++; teams[m.teamB].points += 2;
+            teams[m.teamA].loss++;
+        }
+    });
+
+    localStorage.setItem("teams", JSON.stringify(teams));
+    localStorage.setItem("matches", JSON.stringify(matches));
+
+    renderHistory();
+}
+
+/* =========================
+   INIT
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+    loadPlayers();
+    renderHistory();
+    openTab("nrrTab");
+});
 </script>
 {% endblock %}

@@ -260,3 +260,197 @@ body {
         flex: 1; /* Pushes the value to the right */
     }
 }
+
+.tab button {
+    padding: 10px 20px;
+    margin: 5px;
+    background: #0f172a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+/* NRR BOX */
+.nrr-box {
+    background: #091e3a;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(45,158,224,0.2);
+}
+
+.team-box {
+    background: #060B13;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.team-box h3 {
+    color: #2d9ee0;
+    margin-bottom: 10px;
+}
+
+.team-box input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #091e3a;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 6px;
+}
+
+/* BUTTON */
+.calculate-btn {
+    background: #2d9ee0;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+/* HISTORY */
+.history-box {
+    margin-top: 20px;
+    background: #091e3a;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+#historyTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#historyTable th {
+    background: #2d9ee0;
+    padding: 10px;
+}
+
+#historyTable td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+    background: red;
+    border: none;
+    padding: 6px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* =========================
+   PAGE LAYOUT
+========================= */
+.admin-section {
+    padding: 80px 20px;
+    background: #060B13;
+    min-height: 100vh;
+}
+
+.admin-container {
+    max-width: 1000px;
+    margin: auto;
+    background: #091e3a;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(45,158,224,0.2);
+}
+
+/* =========================
+   TITLE
+========================= */
+.admin-container h1 {
+    text-align: center;
+    color: #2d9ee0;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   TABLE STYLING
+========================= */
+#pointsTable {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* HEADER */
+#pointsTable thead {
+    background: #2d9ee0;
+}
+
+#pointsTable th {
+    padding: 14px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ROWS */
+#pointsTable td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ALTERNATE ROW COLOR */
+#pointsTable tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.03);
+}
+
+/* HOVER EFFECT */
+#pointsTable tbody tr:hover {
+    background: rgba(45,158,224,0.15);
+    transition: 0.2s;
+}
+
+/* TOP TEAM HIGHLIGHT */
+#pointsTable tbody tr:first-child {
+    background: rgba(46, 204, 113, 0.2);
+    font-weight: bold;
+}
+
+/* =========================
+   RESPONSIVE (MOBILE)
+========================= */
+@media (max-width: 768px) {
+
+    #pointsTable thead {
+        display: none;
+    }
+
+    #pointsTable tr {
+        display: block;
+        margin-bottom: 15px;
+        background: #0d2546;
+        border-left: 5px solid #2d9ee0;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    #pointsTable td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 5px;
+        border: none;
+        text-align: right;
+    }
+
+    #pointsTable td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #2d9ee0;
+        text-align: left;
+    }
+}
