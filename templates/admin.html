@@ -250,146 +250,66 @@ function openTab(tabId) {
 }
 
 /* =========================
-   MATCH STORAGE
+   CALCULATE MATCH (BACKEND)
 ========================= */
-let teams = JSON.parse(localStorage.getItem("teams")) || {};
-let matches = JSON.parse(localStorage.getItem("matches")) || [];
+async function calculateMatch() {
 
-/* =========================
-   HELPERS
-========================= */
-function getValidOvers(overs, wickets) {
-    return wickets === 10 ? 10 : overs;
-}
-
-/* =========================
-   UPDATE TEAM
-========================= */
-function updateTeam(name, runsScored, oversFaced, runsAgainst, oversBowled) {
-    if (!teams[name]) {
-        teams[name] = {
-            matches: 0, wins: 0, loss: 0, points: 0,
-            runsScored: 0, oversFaced: 0,
-            runsAgainst: 0, oversBowled: 0, nrr: 0
-        };
-    }
-
-    let t = teams[name];
-
-    t.matches++;
-    t.runsScored += runsScored;
-    t.oversFaced += oversFaced;
-    t.runsAgainst += runsAgainst;
-    t.oversBowled += oversBowled;
-
-    t.nrr = (t.runsScored / t.oversFaced) -
-            (t.runsAgainst / t.oversBowled);
-}
-
-/* =========================
-   CALCULATE MATCH
-========================= */
-function calculateMatch() {
     let teamA = document.getElementById("teamA").value.trim();
     let teamB = document.getElementById("teamB").value.trim();
 
-    let runsA = +document.getElementById("runsA").value;
-    let oversA = +document.getElementById("oversA").value;
-    let wicketsA = +document.getElementById("wicketsA").value;
+    let runsA = document.getElementById("runsA").value;
+    let oversA = document.getElementById("oversA").value;
 
-    let runsB = +document.getElementById("runsB").value;
-    let oversB = +document.getElementById("oversB").value;
-    let wicketsB = +document.getElementById("wicketsB").value;
+    let runsB = document.getElementById("runsB").value;
+    let oversB = document.getElementById("oversB").value;
 
-    if (!teamA || !teamB) {
-        alert("Enter team names");
+    if (!teamA || !teamB || !runsA || !runsB || !oversA || !oversB) {
+        alert("Please fill all fields");
         return;
     }
 
-    oversA = getValidOvers(oversA, wicketsA);
-    oversB = getValidOvers(oversB, wicketsB);
+    const btn = document.querySelector(".calculate-btn");
+    btn.disabled = true;
+    btn.innerText = "Saving...";
 
-    let nrrA = (runsA / oversA) - (runsB / oversB);
-    let nrrB = -nrrA;
+    try {
+        const res = await fetch("/save_match", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                teamA,
+                teamB,
+                runsA,
+                runsB,
+                oversA,
+                oversB
+            })
+        });
 
-    updateTeam(teamA, runsA, oversA, runsB, oversB);
-    updateTeam(teamB, runsB, oversB, runsA, oversA);
+        const result = await res.json();
 
-    let winner = "Draw";
+        if (result.status === "success") {
 
-    if (runsA > runsB) {
-        teams[teamA].wins++; teams[teamA].points += 2;
-        teams[teamB].loss++;
-        winner = teamA;
-    } else if (runsB > runsA) {
-        teams[teamB].wins++; teams[teamB].points += 2;
-        teams[teamA].loss++;
-        winner = teamB;
+            let nrrA = (runsA / oversA) - (runsB / oversB);
+            let nrrB = -nrrA;
+
+            document.getElementById("result").innerText =
+                `${teamA} NRR: ${nrrA.toFixed(2)} | ${teamB} NRR: ${nrrB.toFixed(2)}`;
+
+            alert("Match Saved Successfully ✅");
+
+        } else {
+            alert("Error saving match");
+        }
+
+    } catch (err) {
+        alert("Server error");
     }
 
-    // SAVE MATCH
-    matches.push({
-        teamA, teamB,
-        runsA, runsB,
-        winner
-    });
-
-    localStorage.setItem("teams", JSON.stringify(teams));
-    localStorage.setItem("matches", JSON.stringify(matches));
-
-    document.getElementById("result").innerText =
-        `${teamA} NRR: ${nrrA.toFixed(2)} | ${teamB} NRR: ${nrrB.toFixed(2)}`;
-
-    renderHistory();
-}
-
-/* =========================
-   HISTORY TABLE
-========================= */
-function renderHistory() {
-    let tbody = document.querySelector("#historyTable tbody");
-    tbody.innerHTML = "";
-
-    matches.forEach((m, i) => {
-        tbody.innerHTML += `
-        <tr>
-            <td>${m.teamA} vs ${m.teamB}</td>
-            <td>${m.winner}</td>
-            <td>
-                <button onclick="deleteMatch(${i})" class="delete-btn">Delete</button>
-            </td>
-        </tr>`;
-    });
-}
-
-/* =========================
-   DELETE MATCH
-========================= */
-function deleteMatch(index) {
-    matches.splice(index, 1);
-
-    // RESET everything
-    localStorage.removeItem("teams");
-    teams = {};
-
-    // Recalculate from remaining matches
-    matches.forEach(m => {
-        updateTeam(m.teamA, m.runsA, 10, m.runsB, 10);
-        updateTeam(m.teamB, m.runsB, 10, m.runsA, 10);
-
-        if (m.winner === m.teamA) {
-            teams[m.teamA].wins++; teams[m.teamA].points += 2;
-            teams[m.teamB].loss++;
-        } else if (m.winner === m.teamB) {
-            teams[m.teamB].wins++; teams[m.teamB].points += 2;
-            teams[m.teamA].loss++;
-        }
-    });
-
-    localStorage.setItem("teams", JSON.stringify(teams));
-    localStorage.setItem("matches", JSON.stringify(matches));
-
-    renderHistory();
+    btn.disabled = false;
+    btn.innerText = "Calculate & Save";
 }
 
 /* =========================
@@ -397,7 +317,6 @@ function deleteMatch(index) {
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
     loadPlayers();
-    renderHistory();
     openTab("nrrTab");
 });
 </script>

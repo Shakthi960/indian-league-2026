@@ -76,147 +76,88 @@
 
 
 <script>
-    // Configuration - Alphabetized
-    const allStates = [
-        "Andaman & Nicobar",
-        "Andhra Pradesh",
-        "Arunachal Pradesh",
-        "Assam",
-        "Bihar",
-        "Chandigarh",
-        "Chhattisgarh",
-        "Dadra & Nagar Haveli and Daman & Diu",
-        "Delhi",
-        "Goa",
-        "Gujarat",
-        "Haryana",
-        "Himachal Pradesh",
-        "Jammu & Kashmir",
-        "Jharkhand",
-        "Karnataka",
-        "Kerala",
-        "Ladakh",
-        "Lakshadweep",
-        "Madhya Pradesh",
-        "Maharashtra",
-        "Manipur",
-        "Meghalaya",
-        "Mizoram",
-        "Nagaland",
-        "Odisha",
-        "Puducherry",
-        "Punjab",
-        "Rajasthan",
-        "Sikkim",
-        "Tamil Nadu",
-        "Telangana",
-        "Tripura",
-        "Uttar Pradesh",
-        "Uttarakhand",
-        "West Bengal"
-    ];
+/* Form Submit → Backend */
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-    // States to exclude for Football and Kabaddi
-    const excludedStates = [
-        "Andaman & Nicobar",
-        "Chandigarh",
-        "Dadra & Nagar Haveli and Daman & Diu",
-        "Ladakh",
-        "Lakshadweep",
-        "Sikkim"
-    ];
+    const age = document.getElementById("age").value;
+    const phone = document.getElementById("phone").value;
+    const fileInput = document.getElementById("photo");
 
-    const sportSelect = document.getElementById("sport");
-    const stateSelect = document.getElementById("state");
-
-    // Function to populate states based on sport
-    function updateStates() {
-        const selectedSport = sportSelect.value;
-        const currentState = stateSelect.value;
-        
-        // Clear existing options except the first one
-        stateSelect.innerHTML = '<option value="">Representing State*</option>';
-
-        allStates.forEach(state => {
-            // Check if sport is Football/Kabaddi and if state is in the excluded list
-            const isExcludedSport = (selectedSport === "Football" || selectedSport === "Kabaddi");
-            const isExcludedState = excludedStates.includes(state);
-
-            if (!(isExcludedSport && isExcludedState)) {
-                const option = document.createElement("option");
-                option.value = state;
-                option.textContent = state;
-                stateSelect.appendChild(option);
-            }
-        });
-
-        // Re-select previous state if it's still available, else reset
-        if ([...stateSelect.options].some(opt => opt.value === currentState)) {
-            stateSelect.value = currentState;
-        } else {
-            stateSelect.value = "";
-        }
+    if (age < 18 || age > 40) {
+        alert("Age must be between 18 and 40");
+        return;
     }
 
-    // Listen for sport changes
-    sportSelect.addEventListener("change", updateStates);
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Enter valid 10 digit phone number");
+        return;
+    }
 
-    // Initial population
-    updateStates();
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Please upload photo");
+        return;
+    }
 
-    /* Auto calculate age */
-    document.getElementById("dob").addEventListener("change", function() {
-        let dob = new Date(this.value);
-        let today = new Date();
-        let age = today.getFullYear() - dob.getFullYear();
-        let m = today.getMonth() - dob.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-            age--;
+    if (file.size > 2 * 1024 * 1024) {
+        alert("Photo must be less than 2MB");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = async function() {
+
+        const data = {
+            firstname: document.querySelector("[name='firstname']").value,
+            middlename: document.querySelector("[name='middlename']").value,
+            lastname: document.querySelector("[name='lastname']").value,
+            email: document.querySelector("[name='email']").value,
+            phone: phone,
+            dob: document.getElementById("dob").value,
+            age: age,
+            state: document.getElementById("state").value,
+            sport: document.getElementById("sport").value,
+            photo: reader.result
+        };
+
+        try {
+            const res = await fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            if (result.status === "success") {
+
+                alert("Registration Successful\nApplication ID: " + result.application_id);
+
+                // 🔥 redirect to backend preview
+                window.location = "/preview/" + result.application_id;
+
+            } else if (result.status === "duplicate") {
+                alert("Duplicate registration not allowed");
+            } else if (result.status === "phone_limit") {
+                alert("Phone number already used for 10 registrations");
+            } else if (result.status === "email_limit") {
+                alert("Email already used for 10 registrations");
+            } else {
+                alert("Registration failed");
+            }
+
+        } catch (err) {
+            alert("Server error. Please try again.");
         }
-        document.getElementById("age").value = age;
-    });
 
-    /* Form Submit */
-    document.getElementById("registerForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        const age = document.getElementById("age").value;
-        const phone = document.getElementById("phone").value;
-        const fileInput = document.getElementById("photo");
+    };
 
-        if (age < 18 || age > 40) {
-            alert("Age must be between 18 and 40");
-            return;
-        }
-
-        if (!/^[0-9]{10}$/.test(phone)) {
-            alert("Enter valid 10 digit phone number");
-            return;
-        }
-
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("Please upload photo");
-            return;
-        }
-
-        if (file.size > 2 * 1024 * 1024) {
-            alert("Photo must be less than 2MB");
-            return;
-        }
-
-        const reader = new FileReader();
-        const formData = new FormData(this);
-
-        for (let pair of formData.entries()) {
-            localStorage.setItem(pair[0], pair[1]);
-        }
-
-        reader.onload = function() {
-            localStorage.setItem("photo", reader.result);
-            window.location = "/preview";
-        }
-        reader.readAsDataURL(file);
-    });
+    reader.readAsDataURL(file);
+});
 </script>
 
 {% endblock %}

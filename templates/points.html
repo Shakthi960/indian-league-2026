@@ -18,35 +18,54 @@
                     <th>NRR</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                    <td colspan="6" style="text-align:center;">Loading...</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </section>
 
 <script>
-let teams = JSON.parse(localStorage.getItem("teams")) || {};
+async function loadPoints() {
+    const tbody = document.querySelector("#pointsTable tbody");
 
-function renderPointsTable() {
-    let tbody = document.querySelector("#pointsTable tbody");
-    tbody.innerHTML = "";
+    try {
+        const res = await fetch("/get_points");
+        const data = await res.json();
 
-    let sortedTeams = Object.entries(teams)
-        .sort((a, b) => b[1].points - a[1].points || b[1].nrr - a[1].nrr);
+        tbody.innerHTML = "";
 
-    sortedTeams.forEach(([name, data]) => {
-        tbody.innerHTML += `
-        <tr>
-            <td data-label="Team">${name}</td>
-            <td data-label="Matches">${data.matches}</td>
-            <td data-label="Wins">${data.wins}</td>
-            <td data-label="Loss">${data.loss}</td>
-            <td data-label="Points">${data.points}</td>
-            <td data-label="NRR">${data.nrr.toFixed(2)}</td>
-        </tr>`;
-    });
+        if (!data.teams || data.teams.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align:center;">No data available</td>
+                </tr>`;
+            return;
+        }
+
+        data.teams.forEach(team => {
+            tbody.innerHTML += `
+            <tr>
+                <td data-label="Team">${team.name}</td>
+                <td data-label="Matches">${team.matches}</td>
+                <td data-label="Wins">${team.wins}</td>
+                <td data-label="Loss">${team.loss}</td>
+                <td data-label="Points">${team.points}</td>
+                <td data-label="NRR">${Number(team.nrr).toFixed(2)}</td>
+            </tr>`;
+        });
+
+    } catch (err) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;">Server error</td>
+            </tr>`;
+    }
 }
 
-document.addEventListener("DOMContentLoaded", renderPointsTable);
+document.addEventListener("DOMContentLoaded", loadPoints);
 </script>
 
 {% endblock %}
