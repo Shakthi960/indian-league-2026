@@ -76,6 +76,99 @@
 
 
 <script>
+const allStates = [
+    "Andaman & Nicobar",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chandigarh",
+    "Chhattisgarh",
+    "Dadra & Nagar Haveli and Daman & Diu",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu & Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Ladakh",
+    "Lakshadweep",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Puducherry",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal"
+];
+
+const sportSelect = document.getElementById("sport");
+const stateSelect = document.getElementById("state");
+
+function updateStates() {
+    const selectedSport = sportSelect.value;
+
+    const excludedStates = [
+        "Andaman & Nicobar",
+        "Chandigarh",
+        "Dadra & Nagar Haveli and Daman & Diu",
+        "Ladakh",
+        "Lakshadweep",
+        "Sikkim"
+    ];
+
+    stateSelect.innerHTML = '<option value="">Representing State*</option>';
+
+    allStates.forEach(state => {
+        const isExcludedSport = (selectedSport === "Football" || selectedSport === "Kabaddi");
+        const isExcludedState = excludedStates.includes(state);
+
+        if (!(isExcludedSport && isExcludedState)) {
+            const option = document.createElement("option");
+            option.value = state;
+            option.textContent = state;
+            stateSelect.appendChild(option);
+        }
+    });
+}
+
+// Trigger when sport changes
+sportSelect.addEventListener("change", updateStates);
+
+// Load initially
+updateStates();
+</script>
+
+<script>
+document.getElementById("dob").addEventListener("change", function() {
+    let dob = new Date(this.value);
+    let today = new Date();
+
+    let age = today.getFullYear() - dob.getFullYear();
+    let m = today.getMonth() - dob.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    document.getElementById("age").value = age;
+});
+</script>
+
+<script>
 /* Form Submit → Backend */
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
     e.preventDefault();
