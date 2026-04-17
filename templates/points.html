@@ -28,44 +28,70 @@
 </section>
 
 <script>
+const regions = ["north","south","east","west","center"];
+
 async function loadPoints() {
-    const tbody = document.querySelector("#pointsTable tbody");
 
-    try {
-        const res = await fetch("/get_points");
-        const data = await res.json();
+    const res = await fetch("/get_points");
+    const data = await res.json();
 
-        tbody.innerHTML = "";
+    const container = document.querySelector(".admin-container");
+    container.innerHTML = "<h1>Regional Points Table</h1>";
 
-        if (!data.teams || data.teams.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6" style="text-align:center;">No data available</td>
-                </tr>`;
-            return;
-        }
+    let topTeams = [];
 
-        data.teams.forEach(team => {
-            tbody.innerHTML += `
-            <tr>
-                <td data-label="Team">${team.name}</td>
-                <td data-label="Matches">${team.matches}</td>
-                <td data-label="Wins">${team.wins}</td>
-                <td data-label="Loss">${team.loss}</td>
-                <td data-label="Points">${team.points}</td>
-                <td data-label="NRR">${Number(team.nrr).toFixed(2)}</td>
+    regions.forEach(region => {
+
+        let teams = data.teams.filter(t => t.region === region);
+
+        if (teams.length === 0) return;
+
+        let html = `
+        <div class="region-box">
+        <h2>${region.toUpperCase()}</h2>
+        <table class="regionTable">
+        <tr>
+            <th>Team</th><th>M</th><th>W</th><th>L</th><th>P</th><th>NRR</th>
+        </tr>`;
+
+        teams.forEach((t,i) => {
+            if(i===0) topTeams.push(t);
+
+            html += `
+            <tr class="${i===0 ? 'top-team' : ''}">
+                <td>${t.name}</td>
+                <td>${t.matches}</td>
+                <td>${t.wins}</td>
+                <td>${t.loss}</td>
+                <td>${t.points}</td>
+                <td>${t.nrr.toFixed(2)}</td>
             </tr>`;
         });
 
-    } catch (err) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="6" style="text-align:center;">Server error</td>
-            </tr>`;
-    }
+        html += "</table></div>";
+        container.innerHTML += html;
+    });
+
+    // 🔥 Quarter Final Table
+    renderQuarter(topTeams);
+}
+
+function renderQuarter(teams){
+
+    if(teams.length < 5) return;
+
+    let html = `<h2>Quarter Final Round</h2>
+    <table class="regionTable">`;
+
+    teams.forEach((t,i)=>{
+        html += `<tr><td>${i+1}</td><td>${t.name}</td></tr>`;
+    });
+
+    html += "</table>";
+
+    document.querySelector(".admin-container").innerHTML += html;
 }
 
 document.addEventListener("DOMContentLoaded", loadPoints);
 </script>
-
 {% endblock %}

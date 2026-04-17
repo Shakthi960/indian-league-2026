@@ -23,44 +23,124 @@
 <div id="nrrTab" class="tab-content">
 
   <div class="nrr-box">
-    <h2>NRR Calculator</h2>
+  <h2>NRR Calculator</h2>
 
-    <div class="team-box">
-      <h3>Team A</h3>
-      <input type="text" id="teamA" placeholder="Team Name">
-      <input type="number" id="runsA" placeholder="Runs">
-      <input type="number" id="oversA" placeholder="Overs (max 10)">
-      <input type="number" id="wicketsA" placeholder="Wickets">
-    </div>
+  <!-- TEAM A -->
+  <div class="team-box">
+    <h3>Team A</h3>
 
-    <div class="team-box">
-      <h3>Team B</h3>
-      <input type="text" id="teamB" placeholder="Team Name">
-      <input type="number" id="runsB" placeholder="Runs">
-      <input type="number" id="oversB" placeholder="Overs (max 10)">
-      <input type="number" id="wicketsB" placeholder="Wickets">
-    </div>
+    <input type="text" id="teamA" placeholder="Team Name">
 
-    <button class="calculate-btn" onclick="calculateMatch()">Calculate & Save</button>
+    <select id="stateA">
+      <option value="">Select State</option>
+      <option>Jammu and Kashmir</option>
+      <option>Ladakh</option>
+      <option>Himachal Pradesh</option>
+      <option>Uttar Pradesh</option>
+      <option>Haryana</option>
+      <option>Delhi</option>
+      <option>Chandigarh</option>
 
-    <h3 id="result"></h3>
+      <option>Tamil Nadu</option>
+      <option>Kerala</option>
+      <option>Karnataka</option>
+      <option>Andhra Pradesh</option>
+      <option>Telangana</option>
+      <option>Puducherry</option>
+      <option>Lakshadweep</option>
+
+      <option>West Bengal</option>
+      <option>Tripura</option>
+      <option>Mizoram</option>
+      <option>Nagaland</option>
+      <option>Sikkim</option>
+      <option>Andaman and Nicobar Islands</option>
+      <option>Assam</option>
+
+      <option>Rajasthan</option>
+      <option>Gujarat</option>
+      <option>Maharashtra</option>
+      <option>Goa</option>
+      <option>Dadra and Nagar Haveli and Daman and Diu</option>
+      <option>Madhya Pradesh</option>
+      <option>Chhattisgarh</option>
+      <option>Punjab</option>
+
+      <option>Jharkhand</option>
+      <option>Uttarakhand</option>
+      <option>Arunachal Pradesh</option>
+      <option>Manipur</option>
+      <option>Bihar</option>
+      <option>Odisha</option>
+      <option>Meghalaya</option>
+    </select>
+
+    <input type="number" id="runsA" placeholder="Runs">
+    <input type="number" id="oversA" placeholder="Overs (max 10)">
+    <input type="number" id="wicketsA" placeholder="Wickets">
   </div>
 
-  <!-- MATCH HISTORY -->
-  <div class="history-box">
-    <h2>Match History</h2>
-    <table id="historyTable">
-      <thead>
-        <tr>
-          <th>Match</th>
-          <th>Result</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <!-- TEAM B -->
+  <div class="team-box">
+    <h3>Team B</h3>
+
+    <input type="text" id="teamB" placeholder="Team Name">
+
+    <select id="stateB">
+      <option value="">Select State</option>
+
+      <!-- SAME STATES AGAIN -->
+      <option>Jammu and Kashmir</option>
+      <option>Ladakh</option>
+      <option>Himachal Pradesh</option>
+      <option>Uttar Pradesh</option>
+      <option>Haryana</option>
+      <option>Delhi</option>
+      <option>Chandigarh</option>
+
+      <option>Tamil Nadu</option>
+      <option>Kerala</option>
+      <option>Karnataka</option>
+      <option>Andhra Pradesh</option>
+      <option>Telangana</option>
+      <option>Puducherry</option>
+      <option>Lakshadweep</option>
+
+      <option>West Bengal</option>
+      <option>Tripura</option>
+      <option>Mizoram</option>
+      <option>Nagaland</option>
+      <option>Sikkim</option>
+      <option>Andaman and Nicobar Islands</option>
+      <option>Assam</option>
+
+      <option>Rajasthan</option>
+      <option>Gujarat</option>
+      <option>Maharashtra</option>
+      <option>Goa</option>
+      <option>Dadra and Nagar Haveli and Daman and Diu</option>
+      <option>Madhya Pradesh</option>
+      <option>Chhattisgarh</option>
+      <option>Punjab</option>
+
+      <option>Jharkhand</option>
+      <option>Uttarakhand</option>
+      <option>Arunachal Pradesh</option>
+      <option>Manipur</option>
+      <option>Bihar</option>
+      <option>Odisha</option>
+      <option>Meghalaya</option>
+    </select>
+
+    <input type="number" id="runsB" placeholder="Runs">
+    <input type="number" id="oversB" placeholder="Overs (max 10)">
+    <input type="number" id="wicketsB" placeholder="Wickets">
   </div>
 
+  <button class="calculate-btn" onclick="calculateMatch()">Calculate & Save</button>
+
+  <h3 id="result"></h3>
+</div>
 </div>
 
 <!-- PLAYERS TAB -->
@@ -263,8 +343,16 @@ async function calculateMatch() {
     let runsB = document.getElementById("runsB").value;
     let oversB = document.getElementById("oversB").value;
 
+    let stateA = document.getElementById("stateA").value;
+    let stateB = document.getElementById("stateB").value;
+
     if (!teamA || !teamB || !runsA || !runsB || !oversA || !oversB) {
         alert("Please fill all fields");
+        return;
+    }
+
+    if (!stateA || !stateB) {
+        alert("Please select states for both teams");
         return;
     }
 
@@ -284,7 +372,9 @@ async function calculateMatch() {
                 runsA,
                 runsB,
                 oversA,
-                oversB
+                oversB,
+                stateA,
+                stateB
             })
         });
 
