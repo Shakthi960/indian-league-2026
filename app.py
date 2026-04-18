@@ -50,11 +50,12 @@ def create_database():
     )
     """)
 
-    # ✅ TEAMS TABLE (NEW)
+    # ✅ TEAMS TABLE WITH REGION
     cur.execute("""
     CREATE TABLE IF NOT EXISTS teams(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT UNIQUE,
+        region TEXT,
         matches INTEGER DEFAULT 0,
         wins INTEGER DEFAULT 0,
         loss INTEGER DEFAULT 0,
@@ -67,8 +68,26 @@ def create_database():
     conn.close()
 
 
-# create database automatically
 create_database()
+
+
+# -----------------------------
+# REGION LOGIC
+# -----------------------------
+
+REGIONS = {
+    "north": ["Jammu and Kashmir","Ladakh","Himachal Pradesh","Uttar Pradesh","Haryana","Delhi","Chandigarh"],
+    "south": ["Tamil Nadu","Kerala","Karnataka","Andhra Pradesh","Telangana","Puducherry","Lakshadweep"],
+    "east": ["West Bengal","Tripura","Mizoram","Nagaland","Sikkim","Andaman and Nicobar Islands","Assam"],
+    "west": ["Rajasthan","Gujarat","Maharashtra","Goa","Dadra and Nagar Haveli and Daman and Diu","Madhya Pradesh","Chhattisgarh","Punjab"],
+    "center": ["Jharkhand","Uttarakhand","Arunachal Pradesh","Manipur","Bihar","Odisha","Meghalaya"]
+}
+
+def get_region(state):
+    for region, states in REGIONS.items():
+        if state in states:
+            return region
+    return "unknown"
 
 
 # -----------------------------
@@ -148,13 +167,8 @@ def admin_login():
     return render_template("admin_login.html")
 
 
-# -----------------------------
-# ADMIN PAGE
-# -----------------------------
-
 @app.route("/admin")
 def admin():
-
     if not session.get("admin"):
         return redirect("/admin_login")
 
@@ -243,85 +257,95 @@ def register():
 
 
 # -----------------------------
-# CHECK STATUS
+# SAVE MATCH (NRR + REGION)
 # -----------------------------
+def convert_overs(overs):
+    overs = str(overs)
 
-@app.route("/check_status", methods=["POST"])
-def check_status():
+    if "." in overs:
+        o, balls = overs.split(".")
+        return int(o) + (int(balls) / 6)
+    
+    return float(overs)
 
-    data = request.json
-    phone = data.get("phone")
-
-    if not phone:
-        return {"status": "error"}
-
-    conn = connect_db()
-    cur = conn.cursor()
-
-    cur.execute("SELECT id FROM players WHERE phone=?", (phone,))
-    user = cur.fetchone()
-
-    conn.close()
-
-    if user:
-        return {"status": "registered", "id": user["id"]}
-
-    return {"status": "not_registered"}
-
-
-# -----------------------------
-# POINTS SYSTEM (NEW)
-# -----------------------------
 
 @app.route("/save_match", methods=["POST"])
 def save_match():
-    data = request.json
+    try:
+        data = request.json
 
-    teamA = data["teamA"]
-    teamB = data["teamB"]
-    runsA = float(data["runsA"])
-    runsB = float(data["runsB"])
-    oversA = float(data["oversA"])
-    oversB = float(data["oversB"])
+        teamA = data["teamA"]
+        teamB = data["teamB"]
 
-    conn = connect_db()
-    cur = conn.cursor()
+        stateA = data["stateA"]
+        stateB = data["stateB"]
 
-    def update_team(name, runs_for, overs_for, runs_against, overs_against, win):
-        cur.execute("SELECT * FROM teams WHERE name=?", (name,))
-        team = cur.fetchone()
+        runsA = float(data["runsA"])
+        runsB = float(data["runsB"])
+        try:
+            oversA = convert_overs(data["oversA"])
+            oversB = convert_overs(data["oversB"])
+        except:
+            return {"status": "error", "message": "Invalid overs format"}
 
-        if not team:
-            cur.execute("INSERT INTO teams (name) VALUES (?)", (name,))
-            conn.commit()
+        # ✅ Prevent crash
+        if oversA == 0 or oversB == 0:
+            return {"status": "error", "message": "Overs cannot be 0"}
+
+        regionA = get_region(stateA)
+        regionB = get_region(stateB)
+
+        conn = connect_db()
+        cur = conn.cursor()
+
+        def update_team(name, region, runs_for, overs_for, runs_against, overs_against, win):
+
             cur.execute("SELECT * FROM teams WHERE name=?", (name,))
             team = cur.fetchone()
 
-        matches = team["matches"] + 1
-        wins = team["wins"] + (1 if win else 0)
-        loss = team["loss"] + (0 if win else 1)
-        points = team["points"] + (2 if win else 0)
+            if not team:
+                cur.execute(
+                    "INSERT INTO teams (name, region) VALUES (?,?)",
+                    (name, region)
+                )
+                conn.commit()
 
-        nrr = (runs_for / overs_for) - (runs_against / overs_against)
+                cur.execute("SELECT * FROM teams WHERE name=?", (name,))
+                team = cur.fetchone()
 
-        cur.execute("""
-        UPDATE teams
-        SET matches=?, wins=?, loss=?, points=?, nrr=nrr+?
-        WHERE name=?
-        """, (matches, wins, loss, points, nrr, name))
+            matches = team["matches"] + 1
+            wins = team["wins"] + (1 if win else 0)
+            loss = team["loss"] + (0 if win else 1)
+            points = team["points"] + (2 if win else 0)
 
-    if runsA > runsB:
-        update_team(teamA, runsA, oversA, runsB, oversB, True)
-        update_team(teamB, runsB, oversB, runsA, oversA, False)
-    else:
-        update_team(teamB, runsB, oversB, runsA, oversA, True)
-        update_team(teamA, runsA, oversA, runsB, oversB, False)
+            nrr = (runs_for / overs_for) - (runs_against / overs_against)
 
-    conn.commit()
-    conn.close()
+            cur.execute("""
+                UPDATE teams
+                SET matches=?, wins=?, loss=?, points=?, nrr=nrr+?
+                WHERE name=?
+            """, (matches, wins, loss, points, nrr, name))
 
-    return {"status": "success"}
+        # ✅ Match result
+        if runsA > runsB:
+            update_team(teamA, regionA, runsA, oversA, runsB, oversB, True)
+            update_team(teamB, regionB, runsB, oversB, runsA, oversA, False)
+        else:
+            update_team(teamB, regionB, runsB, oversB, runsA, oversA, True)
+            update_team(teamA, regionA, runsA, oversA, runsB, oversB, False)
 
+        conn.commit()
+        conn.close()
+
+        return {"status": "success"}
+
+    except Exception as e:   # 🔥 VERY IMPORTANT
+        print("SAVE MATCH ERROR:", e)
+        return {"status": "error", "message": str(e)}
+
+# -----------------------------
+# GET POINTS
+# -----------------------------
 
 @app.route("/get_points")
 def get_points():
@@ -330,7 +354,7 @@ def get_points():
 
     cur.execute("""
         SELECT * FROM teams
-        ORDER BY points DESC, nrr DESC
+        ORDER BY region, points DESC, nrr DESC
     """)
 
     teams = cur.fetchall()

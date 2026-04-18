@@ -346,6 +346,17 @@ async function calculateMatch() {
     let stateA = document.getElementById("stateA").value;
     let stateB = document.getElementById("stateB").value;
 
+    // VALIDATION
+    if (oversA.includes('.') && oversA.split('.')[1] > 5) {
+        alert("Invalid overs A (max .5)");
+        return;
+    }
+
+    if (oversB.includes('.') && oversB.split('.')[1] > 5) {
+        alert("Invalid overs B (max .5)");
+        return;
+    }
+
     if (!teamA || !teamB || !runsA || !runsB || !oversA || !oversB) {
         alert("Please fill all fields");
         return;
@@ -382,7 +393,19 @@ async function calculateMatch() {
 
         if (result.status === "success") {
 
-            let nrrA = (runsA / oversA) - (runsB / oversB);
+            function convertOvers(overs) {
+                overs = overs.toString();
+                if (overs.includes(".")) {
+                    let parts = overs.split(".");
+                    return parseInt(parts[0]) + (parseInt(parts[1]) / 6);
+                }
+                return parseFloat(overs);
+            }
+
+            let oA = convertOvers(oversA);
+            let oB = convertOvers(oversB);
+
+            let nrrA = (runsA / oA) - (runsB / oB);
             let nrrB = -nrrA;
 
             document.getElementById("result").innerText =
@@ -391,11 +414,14 @@ async function calculateMatch() {
             alert("Match Saved Successfully ✅");
 
         } else {
-            alert("Error saving match");
+            alert(result.message || "Error saving match");
         }
 
     } catch (err) {
-        alert("Server error");
+    alert("Server error");
+    } finally {
+        btn.disabled = false;
+        btn.innerText = "Calculate & Save";
     }
 
     btn.disabled = false;

@@ -4,26 +4,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 
 <section class="admin-section">
-    <div class="admin-container">
+    <div class="admin-container" id="mainContainer">
         <h1>Points Table</h1>
-
-        <table border="1" id="pointsTable">
-            <thead>
-                <tr>
-                    <th>Team</th>
-                    <th>Matches</th>
-                    <th>Wins</th>
-                    <th>Loss</th>
-                    <th>Points</th>
-                    <th>NRR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colspan="6" style="text-align:center;">Loading...</td>
-                </tr>
-            </tbody>
-        </table>
+        <p style="text-align:center;">Loading...</p>
     </div>
 </section>
 
@@ -35,27 +18,40 @@ async function loadPoints() {
     const res = await fetch("/get_points");
     const data = await res.json();
 
-    const container = document.querySelector(".admin-container");
-    container.innerHTML = "<h1>Regional Points Table</h1>";
+    const container = document.getElementById("mainContainer");
+
+    let html = `<h1>Regional Points Table</h1><div class="grid">`;
 
     let topTeams = [];
 
     regions.forEach(region => {
 
-        let teams = data.teams.filter(t => t.region === region);
+        let teams = data.teams
+            .filter(t => t.region === region)
+            .sort((a,b)=> b.points - a.points || b.nrr - a.nrr);
 
         if (teams.length === 0) return;
 
-        let html = `
+        html += `
         <div class="region-box">
-        <h2>${region.toUpperCase()}</h2>
-        <table class="regionTable">
-        <tr>
-            <th>Team</th><th>M</th><th>W</th><th>L</th><th>P</th><th>NRR</th>
-        </tr>`;
+            <h2>${region.toUpperCase()}</h2>
+            <table class="regionTable">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>M</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>P</th>
+                        <th>NRR</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
 
         teams.forEach((t,i) => {
-            if(i===0) topTeams.push(t);
+
+            if(i === 0) topTeams.push(t);
 
             html += `
             <tr class="${i===0 ? 'top-team' : ''}">
@@ -68,30 +64,52 @@ async function loadPoints() {
             </tr>`;
         });
 
-        html += "</table></div>";
-        container.innerHTML += html;
+        html += `</tbody></table></div>`;
     });
 
-    // 🔥 Quarter Final Table
-    renderQuarter(topTeams);
+    html += `</div>`;
+
+    // 🔥 Knockout section
+    html += renderKnockout(topTeams);
+
+    container.innerHTML = html;
 }
 
-function renderQuarter(teams){
+function renderKnockout(teams){
 
-    if(teams.length < 5) return;
+    if(teams.length < 5){
+        return `<p style="text-align:center;margin-top:20px;">Not enough teams for knockout</p>`;
+    }
 
-    let html = `<h2>Quarter Final Round</h2>
-    <table class="regionTable">`;
+    teams.sort((a,b)=> b.points - a.points || b.nrr - a.nrr);
 
-    teams.forEach((t,i)=>{
-        html += `<tr><td>${i+1}</td><td>${t.name}</td></tr>`;
-    });
+    let t1 = teams[0];
+    let t2 = teams[1];
+    let t3 = teams[2];
+    let t4 = teams[3];
+    let t5 = teams[4];
 
-    html += "</table>";
+    return `
+    <div class="knockout">
 
-    document.querySelector(".admin-container").innerHTML += html;
+        <h2 style="text-align:center;">🏆 Knockout Stage</h2>
+
+        <h3>Quarter Finals</h3>
+        <div class="match-box">${t1.name} vs ${t2.name}</div>
+        <div class="match-box">${t3.name} vs ${t4.name}</div>
+        <div class="match-box">Loser QF1 vs ${t5.name}</div>
+
+        <h3>Semi Finals</h3>
+        <div class="match-box">Winner QF1 vs Winner QF2</div>
+        <div class="match-box">Winner QF3 vs Loser SF1</div>
+
+        <h3>Final</h3>
+        <div class="match-box final">Winner SF1 vs Winner SF2</div>
+
+    </div>`;
 }
 
 document.addEventListener("DOMContentLoaded", loadPoints);
 </script>
+
 {% endblock %}
