@@ -63,7 +63,7 @@ def registration():
 
 @app.route("/preview/<app_id>")
 def preview(app_id):
-    res = supabase.table("Players").select("*").eq("application_id", app_id).execute()
+    res = supabase.table("players").select("*").eq("application_id", app_id).execute()
     if len(res.data) == 0:
         return "Invalid Application ID"
     return render_template("preview.html", user=res.data[0])
@@ -116,7 +116,7 @@ def register():
         data = request.json
 
         # duplicate check
-        res = supabase.table("Players").select("*")\
+        res = supabase.table("players").select("*")\
             .eq("firstname", data["firstname"])\
             .eq("lastname", data["lastname"])\
             .eq("phone", data["phone"])\
@@ -128,7 +128,7 @@ def register():
             return jsonify({"status": "duplicate"})
 
         # insert
-        supabase.table("Players").insert({
+        supabase.table("players").insert({
             "application_id": application_id,
             "firstname": data.get("firstname"),
             "middlename": data.get("middlename"),
@@ -150,6 +150,23 @@ def register():
     except Exception as e:
         print("REGISTER ERROR:", e)
         return jsonify({"status": "error"})
+
+@app.route("/delete_team", methods=["POST"])
+def delete_team():
+    if not session.get("admin"):
+        return {"status": "unauthorized"}
+
+    try:
+        data = request.json
+        team_name = data["name"]
+
+        supabase.table("teams").delete().eq("name", team_name).execute()
+
+        return {"status": "success"}
+
+    except Exception as e:
+        print("DELETE ERROR:", e)
+        return {"status": "error"}
 
 
 # -----------------------------
@@ -239,13 +256,13 @@ def get_points():
 # -----------------------------
 # ADMIN API (SUPABASE)
 # -----------------------------
-@app.route("/get_Players")
-def get_Players():
+@app.route("/get_players")
+def get_players():
 
     if not session.get("admin"):
-        return {"Players": []}
+        return {"players": []}
 
-    res = supabase.table("Players")\
+    res = supabase.table("players")\
         .select("id, firstname, lastname, phone, state, sport")\
         .order("id", desc=True)\
         .execute()
@@ -260,7 +277,7 @@ def get_Players():
             "sport": p["sport"]
         })
 
-    return {"Players": data}
+    return {"players": data}
 
 
 # -----------------------------

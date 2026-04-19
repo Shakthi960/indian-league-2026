@@ -143,6 +143,19 @@
 </div>
 </div>
 
+<h2>Manage Teams</h2>
+<table id="teamsTable">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>Region</th>
+            <th>Points</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
 <!-- PLAYERS TAB -->
 <div id="playersTab" class="tab-content">
 
@@ -427,6 +440,51 @@ async function calculateMatch() {
     btn.disabled = false;
     btn.innerText = "Calculate & Save";
 }
+
+async function loadTeams(){
+    const res = await fetch("/get_points");
+    const data = await res.json();
+
+    const table = document.querySelector("#teamsTable tbody");
+
+    table.innerHTML = data.teams.map(t => `
+        <tr>
+            <td>${t.name}</td>
+            <td>${t.region}</td>
+            <td>${t.points}</td>
+            <td>
+                <button onclick="deleteTeam('${t.name}')">Delete</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+async function deleteTeam(name){
+    if(!confirm("Delete " + name + "?")) return;
+
+    const res = await fetch("/delete_team", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name })
+    });
+
+    const result = await res.json();
+
+    if(result.status === "success"){
+        alert("Deleted ✅");
+        loadTeams();
+    }else{
+        alert("Delete failed");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadPlayers();
+    loadTeams();   // 👈 ADD THIS
+    openTab("nrrTab");
+});
 
 /* =========================
    INIT
