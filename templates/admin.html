@@ -3,6 +3,92 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+<style>
+    /* =========================
+   MANAGE TEAMS SECTION
+========================= */
+
+h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #00bcd4;
+}
+
+/* TABLE CONTAINER */
+#teamsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0a192f;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* HEADER */
+#teamsTable thead {
+    background: linear-gradient(90deg, #00bcd4, #0097a7);
+}
+
+#teamsTable th {
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+/* ROWS */
+#teamsTable td {
+    padding: 12px;
+    text-align: center;
+    color: #e0f7fa;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* HOVER EFFECT */
+#teamsTable tbody tr:hover {
+    background: #112240;
+    transition: 0.2s;
+}
+
+/* ZEBRA STRIPES */
+#teamsTable tbody tr:nth-child(even) {
+    background: #091426;
+}
+
+/* DELETE BUTTON */
+#teamsTable button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #ff4d4d, #cc0000);
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* BUTTON HOVER */
+#teamsTable button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #ff1a1a, #990000);
+}
+
+/* EMPTY STATE */
+#teamsTable tbody:empty::after {
+    content: "No teams available";
+    display: block;
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+}
+
+#teamsTable {
+    backdrop-filter: blur(8px);
+}
+</style>
 
 <section class="admin-section">
     <div class="admin-container">
