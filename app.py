@@ -151,22 +151,10 @@ def register():
         print("REGISTER ERROR:", e)
         return jsonify({"status": "error"})
 
-@app.route("/delete_team", methods=["POST"])
-def delete_team():
-    if not session.get("admin"):
-        return {"status": "unauthorized"}
-
-    try:
-        data = request.json
-        team_name = data["name"]
-
-        supabase.table("teams").delete().eq("name", team_name).execute()
-
-        return {"status": "success"}
-
-    except Exception as e:
-        print("DELETE ERROR:", e)
-        return {"status": "error"}
+@app.route("/get_matches")
+def get_matches():
+    res = supabase.table("matches").select("*").order("id", desc=True).execute()
+    return {"matches": res.data}
 
 
 # -----------------------------
@@ -202,6 +190,17 @@ def save_match():
 
         regionA = get_region(stateA)
         regionB = get_region(stateB)
+
+        supabase.table("matches").insert({
+            "teamA": teamA,
+            "teamB": teamB,
+            "stateA": stateA,
+            "stateB": stateB,
+            "runsA": runsA,
+            "runsB": runsB,
+            "oversA": oversA,
+            "oversB": oversB
+        }).execute()
 
         def update_team(name, region, runs_for, overs_for, runs_against, overs_against, win):
 
@@ -244,6 +243,77 @@ def save_match():
         return {"status": "error"}
 
 
+
+@app.route("/delete_match", methods=["POST"])
+def delete_match():
+    if not session.get("admin"):
+        return {"status": "unauthorized"}
+
+    try:
+        match_id = request.json["id"]
+
+        # 1. Delete match
+        supabase.table("matches").delete().eq("id", match_id).execute()
+
+        # 2. Reset teams
+        supabase.table("teams").delete().neq("id", 0).execute()
+
+        # 3. Recalculate from remaining matches
+        matches = supabase.table("matches").select("*").execute().data
+
+        for m in matches:
+            teamA = m["teamA"]
+            teamB = m["teamB"]
+
+            runsA = m["runsA"]
+            runsB = m["runsB"]
+
+            oversA = m["oversA"]
+            oversB = m["oversB"]
+
+            stateA = m["stateA"]
+            stateB = m["stateB"]
+
+            regionA = get_region(stateA)
+            regionB = get_region(stateB)
+
+            def update(name, region, rf, of, ra, oa, win):
+                res = supabase.table("teams").select("*").eq("name", name).execute()
+
+                if len(res.data) == 0:
+                    supabase.table("teams").insert({
+                        "name": name,
+                        "region": region,
+                        "matches": 0,
+                        "wins": 0,
+                        "loss": 0,
+                        "points": 0,
+                        "nrr": 0
+                    }).execute()
+                    res = supabase.table("teams").select("*").eq("name", name).execute()
+
+                t = res.data[0]
+
+                supabase.table("teams").update({
+                    "matches": t["matches"] + 1,
+                    "wins": t["wins"] + (1 if win else 0),
+                    "loss": t["loss"] + (0 if win else 1),
+                    "points": t["points"] + (2 if win else 0),
+                    "nrr": t["nrr"] + ((rf/of) - (ra/oa))
+                }).eq("name", name).execute()
+
+            if runsA > runsB:
+                update(teamA, regionA, runsA, oversA, runsB, oversB, True)
+                update(teamB, regionB, runsB, oversB, runsA, oversA, False)
+            else:
+                update(teamB, regionB, runsB, oversB, runsA, oversA, True)
+                update(teamA, regionA, runsA, oversA, runsB, oversB, False)
+
+        return {"status": "success"}
+
+    except Exception as e:
+        print("DELETE MATCH ERROR:", e)
+        return {"status": "error"}
 # -----------------------------
 # GET POINTS (SUPABASE)
 # -----------------------------

@@ -5,18 +5,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 <style>
     /* =========================
-   MANAGE TEAMS SECTION
+   MATCH HISTORY SECTION
 ========================= */
 
-h2 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    font-size: 22px;
-    color: #00bcd4;
-}
-
-/* TABLE CONTAINER */
-#teamsTable {
+#matchTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
@@ -27,11 +19,11 @@ h2 {
 }
 
 /* HEADER */
-#teamsTable thead {
+#matchTable thead {
     background: linear-gradient(90deg, #00bcd4, #0097a7);
 }
 
-#teamsTable th {
+#matchTable th {
     padding: 12px;
     text-align: center;
     font-weight: bold;
@@ -40,7 +32,7 @@ h2 {
 }
 
 /* ROWS */
-#teamsTable td {
+#matchTable td {
     padding: 12px;
     text-align: center;
     color: #e0f7fa;
@@ -48,18 +40,18 @@ h2 {
 }
 
 /* HOVER EFFECT */
-#teamsTable tbody tr:hover {
+#matchTable tbody tr:hover {
     background: #112240;
     transition: 0.2s;
 }
 
 /* ZEBRA STRIPES */
-#teamsTable tbody tr:nth-child(even) {
+#matchTable tbody tr:nth-child(even) {
     background: #091426;
 }
 
 /* DELETE BUTTON */
-#teamsTable button {
+#matchTable button {
     padding: 6px 12px;
     border: none;
     border-radius: 6px;
@@ -71,21 +63,22 @@ h2 {
 }
 
 /* BUTTON HOVER */
-#teamsTable button:hover {
+#matchTable button:hover {
     transform: scale(1.05);
     background: linear-gradient(90deg, #ff1a1a, #990000);
 }
 
 /* EMPTY STATE */
-#teamsTable tbody:empty::after {
-    content: "No teams available";
+#matchTable tbody:empty::after {
+    content: "No matches available";
     display: block;
     padding: 20px;
     text-align: center;
     color: #aaa;
 }
 
-#teamsTable {
+/* GLASS EFFECT (optional but nice) */
+#matchTable {
     backdrop-filter: blur(8px);
 }
 </style>
@@ -229,13 +222,12 @@ h2 {
 </div>
 </div>
 
-<h2>Manage Teams</h2>
-<table id="teamsTable">
+<h2>Match History</h2>
+<table id="matchTable">
     <thead>
         <tr>
-            <th>Team</th>
-            <th>Region</th>
-            <th>Points</th>
+            <th>ID</th>
+            <th>Match</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -568,16 +560,50 @@ async function deleteTeam(name){
 
 document.addEventListener("DOMContentLoaded", () => {
     loadPlayers();
-    loadTeams();   // 👈 ADD THIS
+    loadTeams();
+    loadMatches();   // 👈 ADD THIS
     openTab("nrrTab");
 });
 
-/* =========================
-   INIT
-========================= */
-document.addEventListener("DOMContentLoaded", () => {
-    loadPlayers();
-    openTab("nrrTab");
-});
+
+async function loadMatches(){
+    const res = await fetch("/get_matches");
+    const data = await res.json();
+
+    const table = document.querySelector("#matchTable tbody");
+
+    table.innerHTML = data.matches.map(m => `
+        <tr>
+            <td>${m.id}</td>
+            <td>${m.teamA} vs ${m.teamB}</td>
+            <td>
+                <button onclick="deleteMatch(${m.id})">Delete</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+
+async function deleteMatch(id){
+    if(!confirm("Delete this match?")) return;
+
+    const res = await fetch("/delete_match", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id })
+    });
+
+    const result = await res.json();
+
+    if(result.status === "success"){
+        alert("Deleted ✅");
+        loadMatches();
+    }else{
+        alert("Delete failed");
+    }
+}
+
 </script>
 {% endblock %}
